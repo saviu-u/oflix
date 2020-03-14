@@ -26,10 +26,10 @@ O projeto têm as seguintes rotas:
 
 | Rotas               | Home    | Usuários | Clientes | Categorias | DVD's   |
 | :------------------ | :-----: | :-----:  | :------: | :--------: | :-----: |
-| **Index (GET)**     |:tw-2705:|:tw-2705: |:tw-2705: |:tw-2705:   |:tw-2705:|
-| **New (GET)**       |:tw-274c:|:tw-2705: |:tw-2705: |:tw-2705:   |:tw-2705:|
-| **Create (POST)**   |:tw-274c:|:tw-2705: |:tw-2705: |:tw-2705:   |:tw-2705:|
-| **Edit (GET)**      |:tw-274c:|:tw-2705: |:tw-2705: |:tw-274c:   |:tw-2705:|
-| **Update (PUT)**    |:tw-274c:|:tw-2705: |:tw-2705: |:tw-274c:   |:tw-2705:|
-| **Delete(DELETE)**  |:tw-274c:|:tw-2705: |:tw-2705: |:tw-2705:   |:tw-2705:|
+| **Index (GET)**     |❌|❌ |❌ |❌   |❌|
+| **New (GET)**       |✅|❌ |❌ |❌   |❌|
+| **Create (POST)**   |✅|❌ |❌ |❌   |❌|
+| **Edit (GET)**      |✅|❌ |❌ |✅   |❌|
+| **Update (PUT)**    |✅|❌ |❌ |✅   |❌|
+| **Delete(DELETE)**  |✅|❌ |❌ |❌   |❌|
 
