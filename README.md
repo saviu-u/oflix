@@ -26,9 +26,9 @@ O projeto têm as seguintes rotas:
 
 | Rotas               | Home    | Usuários | Clientes | Categorias | DVD's   |
 | :------------------ | :-----: | :-----:  | :------: | :--------: | :-----: |
-| **Index (GET)**     |❌|❌ |❌ |❌   |❌|
-| **New (GET)**       |✅|❌ |❌ |❌   |❌|
-| **Create (POST)**   |✅|❌ |❌ |❌   |❌|
-| **Edit (GET)**      |✅|❌ |❌ |✅   |❌|
-| **Update (PUT)**    |✅|❌ |❌ |✅   |❌|
-| **Delete(DELETE)**  |✅|❌ |❌ |❌   |❌|
+| **Index (GET)**     |✅|✅ |✅ |✅   |✅|
+| **New (GET)**       |❌|✅ |✅ |✅   |✅|
+| **Create (POST)**   |❌|✅ |✅ |✅   |✅|
+| **Edit (GET)**      |❌|✅ |✅ |❌   |✅|
+| **Update (PUT)**    |❌|✅ |✅ |❌   |✅|
+| **Delete(DELETE)**  |❌|✅ |✅ |✅   |✅|
