@@ -1,9 +1,9 @@
-package com.squad4.oflix.controller;
+package com.squad4.oflix.resources;
 
 
 import javax.servlet.annotation.WebServlet;
 @WebServlet(urlPatterns = {"/usuarios/*"})
 
-public class UsuariosController extends Controller {
+public class UsersController extends Controller {
     
 }

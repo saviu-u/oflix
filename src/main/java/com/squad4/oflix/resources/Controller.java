@@ -1,4 +1,4 @@
-package com.squad4.oflix.controller;
+package com.squad4.oflix.resources;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,15 +17,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author savio
  */
 public class Controller extends HttpServlet {
-    
-    private Map<String, Map<String, String>> st(){
-        Map<String, Map<String, String>> st = new HashMap<String, Map<String, String>>();
-        Map<String, String> aux = new HashMap<String, String>();
-        
-        aux.put("index", "ao");
-        st.put("GET", aux);
-        return st;
-    }
  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
@@ -37,11 +28,7 @@ public class Controller extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         
-        AddParameters(request, response);
-        
         if (badRequest){ response.setStatus(400); return; }
-        
-        
         
         response.getWriter().println(id + " " + verb + " " + action + " " + badRequest);
     }
@@ -108,6 +95,7 @@ public class Controller extends HttpServlet {
         int args = 1;
         if(getId(request) != -1) args++ ;
         if(getAction(request) != null) args++ ;
+        System.out.println("\n*********\n" + args + "\n********\n" + request.getPathInfo() + "\n********\n" + request.getPathInfo().split("/").length);
         return !(args == request.getPathInfo().split("/").length);
     }
 

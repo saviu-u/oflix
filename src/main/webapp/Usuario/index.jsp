@@ -12,6 +12,6 @@
         <title>Usuários</title>
     </head>
     <body>
-        <h1>Usuários!</h1>
+        <h1>index!</h1>
     </body>
 </html>
