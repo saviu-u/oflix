@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 14 de mar de 2020, 01:16:23
+    Document   : new
+    Created on : 15 de mar de 2020, 16:10:48
     Author     : savio
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Usuários</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <h1>index!</h1>
+        <h1>new!</h1>
     </body>
 </html>
