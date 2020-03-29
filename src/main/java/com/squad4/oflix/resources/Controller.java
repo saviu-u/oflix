@@ -2,6 +2,7 @@ package com.squad4.oflix.resources;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,26 +18,58 @@ import javax.servlet.http.HttpServletResponse;
  * @author savio
  */
 public class Controller extends HttpServlet {
+    
+    int id;
+    String action;
+    boolean badRequest;
  
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+        String path =
+            "http://"+request.getServerName()+
+            ":"+request.getLocalPort()+
+            request.getContextPath();
+        request.setAttribute("simplePath", path);
+        
+        request.setAttribute(
+            "pathToSearch",
+            request.getContextPath() + request.getServletPath()
+        );
 
-        int id = getId(request);
-        String verb = request.getMethod();
-        String action = getAction(request);
-        boolean badRequest = extraParameters(request);
+        path += request.getServletPath();
+        if(request.getPathInfo() != null) path += request.getPathInfo();
+        request.setAttribute("path", path);
 
+        id = getId(request);
+        action = getAction(request);
+        badRequest = extraParameters(request);
+        
+        request.setAttribute("id", id);
         response.setContentType("text/html;charset=UTF-8");
         
-        if (badRequest){ response.setStatus(400); return; }
-        
-        response.getWriter().println(id + " " + verb + " " + action + " " + badRequest);
+        if (badRequest){ response.setStatus(404); return false; }
+        // response.getWriter().println(id + " | " + action + " | " + badRequest);
+        return true;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if(!processRequest(request, response));
+        switch (action) {
+            case "index":
+                doIndex(request, response);
+                break;
+            case "show":
+                doShow(request, response);
+                break;
+            case "edit":
+                doEdit(request, response);
+                break;
+            default:
+                response.setStatus(404);
+                break;
+        }
     }
 
     @Override
@@ -56,17 +89,46 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    protected void doIndex(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setStatus(404);
+    }
+    
+    protected void doShow(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setStatus(404);
+    }
+    
+    protected void doEdit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setStatus(404);
+    }
+    
+    protected void doCreate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setStatus(404);
+    }
+
+    protected void doUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setStatus(404);
+    }
+    
+    protected void doDestroy(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setStatus(404);
+    }
 
     @Override
     public String getServletInfo() {
-        return "Rota de usuários";
+        return "";
     }// </editor-fold>
     
     private void AddParameters(HttpServletRequest request, HttpServletResponse response){
     }
-    
     private int getId(HttpServletRequest request){
-        int id = -1;
+        id = -1;
         
         try {
             id = Integer.parseInt(request.getPathInfo().split("/")[1]);
@@ -77,26 +139,34 @@ public class Controller extends HttpServlet {
         return id;
     }
     private String getAction(HttpServletRequest request){
-        String action = "";
-        boolean id = getId(request) != -1;
+        action = "";
+        boolean idBool = id != -1;
         int index = 1;
-        if(id) index++ ;
+        if(idBool) index++ ;
 
         try{ action = request.getPathInfo().split("/")[index]; }
         catch(Exception e){ action = ""; }
         
         if(action == ""){
-            if(id) action = "show";
+            if(idBool) action = "show";
             else action = "index";
         }
         return action;
     }
     private boolean extraParameters(HttpServletRequest request){
-        int args = 1;
-        if(getId(request) != -1) args++ ;
-        if(getAction(request) != null) args++ ;
-        System.out.println("\n*********\n" + args + "\n********\n" + request.getPathInfo() + "\n********\n" + request.getPathInfo().split("/").length);
-        return !(args == request.getPathInfo().split("/").length);
+        int i;
+        int args = 0;
+        if(id != -1) args++ ;
+        if(action != "index" && action != "show" ) args++ ;
+        
+        try{
+            i = request.getPathInfo().split("/").length;
+            if (i != 0) args++;
+        }
+        catch(Exception e){
+            i = 0;
+        }
+        return !(args == i);
     }
 
 }
