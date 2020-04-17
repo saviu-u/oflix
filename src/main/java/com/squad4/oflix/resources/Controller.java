@@ -19,43 +19,53 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Controller extends HttpServlet {
     
-    int id;
-    String action;
-    boolean badRequest;
+    // Setting variables to some URL params
+    private int id;
+    private String action;
+    private boolean badRequest;
  
     protected boolean processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+        // Gets the simple path for frontend purposes
         String path =
             "http://"+request.getServerName()+
             ":"+request.getLocalPort()+
             request.getContextPath();
+        // Usually it's http://localhost:8080/oflix/
         request.setAttribute("simplePath", path);
-        
+
+        // Gets a helper for the search bar
+        // /oflix/usuarios for example
         request.setAttribute(
             "pathToSearch",
             request.getContextPath() + request.getServletPath()
         );
 
+        // Add full path to a request
         path += request.getServletPath();
         if(request.getPathInfo() != null) path += request.getPathInfo();
         request.setAttribute("path", path);
+        
+        // Add params to a attribute
+        request.setAttribute("params", request.getParameterMap());
 
         id = getId(request);
         action = getAction(request);
+        // Sends a bad request in case the address does not match
         badRequest = extraParameters(request);
         
+        // Adds the ID to a atribute
         request.setAttribute("id", id);
         response.setContentType("text/html;charset=UTF-8");
         
         if (badRequest){ response.setStatus(404); return false; }
-        // response.getWriter().println(id + " | " + action + " | " + badRequest);
         return true;
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(!processRequest(request, response));
+        processRequest(request, response);
         switch (action) {
             case "index":
                 doIndex(request, response);
@@ -147,7 +157,7 @@ public class Controller extends HttpServlet {
         try{ action = request.getPathInfo().split("/")[index]; }
         catch(Exception e){ action = ""; }
         
-        if(action == ""){
+        if("".equals(action)){
             if(idBool) action = "show";
             else action = "index";
         }
@@ -157,7 +167,7 @@ public class Controller extends HttpServlet {
         int i;
         int args = 0;
         if(id != -1) args++ ;
-        if(action != "index" && action != "show" ) args++ ;
+        if(!"index".equals(action) && !"show".equals(action) ) args++ ;
         
         try{
             i = request.getPathInfo().split("/").length;
@@ -168,5 +178,4 @@ public class Controller extends HttpServlet {
         }
         return !(args == i);
     }
-
 }
