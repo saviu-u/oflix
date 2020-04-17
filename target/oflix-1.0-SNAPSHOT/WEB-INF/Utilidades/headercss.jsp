@@ -13,11 +13,12 @@
 .search-container button {
     padding: 6px 10px;
     margin-top: 8px;
-    margin-right: 16px;
+    margin-left: 14px;
     background: #ddd;
     font-size: 17px;
     border: none;
     cursor: pointer;
+    
 }
 
 .search-container button:hover {
