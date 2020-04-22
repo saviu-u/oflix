@@ -1,0 +1,54 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/04/2020, 15:33:22
+    Author     : thiago
+*/
+
+.container {
+    display: grid;
+
+    grid-template-rows:   10vh 100% 10vh;
+    grid-template-areas: "h"
+                         "m"
+                         "f"
+
+}
+
+header{
+    background: #f5f5f5;
+    grid-area: h;
+ 
+}
+
+
+main{
+    padding:20px;
+    background: white;
+    border-radius: 5px;
+    margin: 0 auto;
+    grid-area: m;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 16px;
+    min-height: 600px;
+    
+}
+
+footer{
+    grid-area:"f";
+    background: #f5f5f5;
+}
+
+
+img{
+    width: 18px;
+    height: 18px;
+    
+}
+.icon{
+  border-radius: 5px;
+}
+

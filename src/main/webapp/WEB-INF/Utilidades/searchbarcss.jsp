@@ -5,14 +5,15 @@
 --%>
 
 .topnav {
+    border-radius:3px;
     overflow: hidden;
-    background-color: #e9e9e9;
+    background-color: #299be4;
 }
 
 .topnav a {
     float: left;
     display: block;
-    color: black;
+    color: #fff;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -20,8 +21,9 @@
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: #f5f5f5;
     color: black;
+    
 }
 
 .topnav a.active {
