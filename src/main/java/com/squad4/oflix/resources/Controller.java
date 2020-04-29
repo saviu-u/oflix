@@ -54,6 +54,10 @@ public class Controller extends HttpServlet {
         // Sends a bad request in case the address does not match
         badRequest = extraParameters(request);
         
+        System.out.println("ID: " + id);
+        System.out.println("ACTION: " + action);
+        System.out.println("BR: " + badRequest);
+        
         // Adds the ID to a atribute
         request.setAttribute("id", id);
         response.setContentType("text/html;charset=UTF-8");
@@ -66,15 +70,16 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        // Possible cases of a GET verb
         switch (action) {
             case "index":
                 doIndex(request, response);
                 break;
-            case "show":
-                doShow(request, response);
-                break;
             case "edit":
                 doEdit(request, response);
+                break;
+            case "new":
+                doNew(request, response);
                 break;
             default:
                 response.setStatus(404);
@@ -86,18 +91,33 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        if("new".equals(action)){
+            doCreate(request, response);
+            return;
+        }
+        response.setStatus(404);
     }
     
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        if("index".equals(action)){
+            doDestroy(request, response);
+            return;
+        }
+        response.setStatus(404);
     }
     
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        if("edit".equals(action)){
+            doUpdate(request, response);
+            return;
+        }
+        response.setStatus(404);
     }
     
     protected void doIndex(HttpServletRequest request, HttpServletResponse response)
@@ -111,6 +131,11 @@ public class Controller extends HttpServlet {
     }
     
     protected void doEdit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setStatus(404);
+    }
+    
+    protected void doNew(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setStatus(404);
     }

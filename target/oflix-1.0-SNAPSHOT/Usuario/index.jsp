@@ -23,22 +23,22 @@
             <jsp:include page="../WEB-INF/Utilidades/listcss.jsp"></jsp:include>
             <jsp:include page="../WEB-INF/Utilidades/headercss.jsp"></jsp:include>
             <jsp:include page="../WEB-INF/Utilidades/searchbarcss.jsp"></jsp:include>
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <header></header>
-                <main>
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header></header>
+            <main>
                 <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
                 <jsp:include page="../WEB-INF/Utilidades/searchbar.jsp"></jsp:include>
-                    <table class="list">
-                        <tr>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Funçao</th>
-                        </tr>
-                        
-                        <!-- Criação dos dados da tabela -->
+                <table class="list">
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Funçao</th>
+                    </tr>
+                    
+                    <!-- Criação dos dados da tabela -->
                     <%
                         List<Map> usuarios = (List) request.getAttribute("resources");
                         for (int i = 0; i < usuarios.size(); i++) {
@@ -52,7 +52,7 @@
                 </table>
                 <jsp:include page="../WEB-INF/Utilidades/pagecounters.jsp"></jsp:include>
             </main>
-                <footer></footer>
+            <footer></footer>
         </div>
     </body>
 </html>

@@ -18,13 +18,14 @@ public class UsersController extends Controller {
             throws ServletException, IOException {
         request.setAttribute("resources" , User.getResources(""));
         request.setAttribute("pageNumbers", User.pageQuantity(""));
-        request.getRequestDispatcher("Usuario/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/Usuario/index.jsp").forward(request, response);
     }
     
     @Override
-    protected void doShow(HttpServletRequest request, HttpServletResponse response)
+    protected void doNew(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.getWriter().println("workd");
+        request.setAttribute("method", "Novo");
+        request.getRequestDispatcher("/Usuario/form.jsp").forward(request, response);
     }
     
     @Override
