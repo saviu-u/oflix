@@ -54,10 +54,6 @@ public class Controller extends HttpServlet {
         // Sends a bad request in case the address does not match
         badRequest = extraParameters(request);
         
-        System.out.println("ID: " + id);
-        System.out.println("ACTION: " + action);
-        System.out.println("BR: " + badRequest);
-        
         // Adds the ID to a atribute
         request.setAttribute("id", id);
         response.setContentType("text/html;charset=UTF-8");
