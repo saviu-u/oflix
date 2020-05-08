@@ -1,4 +1,4 @@
-package com.squad4.oflix.resources;
+package com.squad4.oflix.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

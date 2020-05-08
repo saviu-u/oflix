@@ -1,1 +1,5 @@
-com\squad4\oflix\resources\User.class
+com\squad4\oflix\controller\UsersController.class
+com\squad4\oflix\controller\Controller.class
+com\squad4\oflix\model\User.class
+DAO\DAO.class
+com\squad4\oflix\model\Model.class

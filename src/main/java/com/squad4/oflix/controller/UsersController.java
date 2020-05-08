@@ -1,4 +1,4 @@
-package com.squad4.oflix.resources;
+package com.squad4.oflix.controller;
 
 
 import java.io.IOException;
@@ -10,11 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import DAO.DAO;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.squad4.oflix.model.*;
 @WebServlet(urlPatterns = {"/usuarios/*"})
 
 public class UsersController extends Controller {
@@ -23,12 +22,6 @@ public class UsersController extends Controller {
             throws ServletException, IOException {
         request.setAttribute("resources" , User.getResources(""));
         request.setAttribute("pageNumbers", User.pageQuantity(""));
-        Connection conexao = new DAO().connect();
-        try {
-            conexao.close();
-        } catch (SQLException ex) {
-           
-        }
         request.getRequestDispatcher("/Usuario/index.jsp").forward(request, response);
     }
     

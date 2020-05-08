@@ -15,15 +15,15 @@ import java.sql.SQLException;
  */
 public class DAO {
     
-    public Connection connect(){
+    public Connection connect() throws ClassNotFoundException{
         try {
+            Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://localhost:" + "5432/testdb";
             String usuario = "postgres";
             String senha = "admin";
             
             return DriverManager.getConnection(url, usuario, senha);
         } catch (SQLException e){
-            System.out.println(e.toString());
             throw new RuntimeException(e);
         }
     }
