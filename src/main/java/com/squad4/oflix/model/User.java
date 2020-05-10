@@ -3,6 +3,7 @@ package com.squad4.oflix.model;
 import DAO.DAO;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,32 +12,58 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class User extends Model {
-    private String id_func;
-    private String nome_pes;
-    private String cpf;
-    private String email;
-    private int telefone_1;
-    private int telefone_2;
-    private String sexo;
-    private String senha;
+    private String id_func = null;
+    private String nome_pes = null;
+    private String cpf = null;
+    private String email = null;
+    private Integer telefone_1 = null;
+    private Integer telefone_2 = null;
+    private String sexo = null;
+    private String senha = null;
     
-    private String estado;
-    private String cidade;
-    private String bairro;
-    private String rua;
-    private int num_residencia;
-    private String complemento;
+    private String estado = null;
+    private String cidade = null;
+    private String bairro = null;
+    private String rua = null;
+    private Integer num_residencia = null;
+    private String complemento = null;
     
-    private String id_end;
+    private String id_end = null;
 
-    public User(Map<String, String> paramList){
-        this.tempFields = paramList;
+    public User() {}
+    public User(Map<String, String[]> paramList){
+        super(paramList);
+        try {this.nome_pes = (paramList.get("nome")[0]);} catch(Exception e) {}
+        try {this.cpf = (paramList.get("cpf")[0]);} catch(Exception e) {}
+        try {this.email = (paramList.get("email")[0]);} catch(Exception e) {}
+        try {this.telefone_1 = Integer.parseInt(paramList.get("telefone1")[0]);} catch(Exception e) {}
+        try {this.telefone_2 = Integer.parseInt(paramList.get("telefone2")[0]);} catch(Exception e) {}
+        try {this.sexo = (paramList.get("sexo")[0]);} catch(Exception e) {}
+        try {this.estado = (paramList.get("estado")[0]);} catch(Exception e) {}
+        try {this.cidade = (paramList.get("cidade")[0]);} catch(Exception e) {}
+        try {this.bairro = (paramList.get("bairro")[0]);} catch(Exception e) {}
+        try {this.rua = (paramList.get("rua")[0]);} catch(Exception e) {}
+        try {this.num_residencia = Integer.parseInt(paramList.get("numero")[0]);} catch(Exception e) {}
+        try {this.complemento = (paramList.get("complemento")[0]);} catch(Exception e) {}
     }
     
     @Override
     public boolean valid(){
-        // nome_pes
-        return true;
+        super.valid();
+        validNome(nome_pes);
+        validCpf(cpf);
+        validEmail(email);
+        validTelefone1(telefone_1);
+        validTelefone2(telefone_2);
+        validSexo(sexo);
+        validEstado(estado);
+        validCidade(cidade);
+        validBairro(bairro);
+        validRua(rua);
+        validNumero(num_residencia);
+        validComplemento(complemento);
+        
+        return !getErrors().isEmpty();
     }
     
     @Override
@@ -59,158 +86,7 @@ public class User extends Model {
         }
         return true;
     }
-    
-    public void setNome(String nome){
-        if(nome == null){
-            errors.put("nome", MISSING_VALUE);
-            return;
-        }
-        if(nome.length() > 255){
-            errors.put("nome", OVERFLOW);
-            return;
-        }
-        this.nome_pes = nome;
-    }
-    public void setCpf(String cpf){
-        if(cpf == null){
-            errors.put("cpf", MISSING_VALUE);
-            return;
-        }
-        if(!cpf.matches("\\A[1-9]{3}([.][1-9]{3}){2}[-][1-9]{2}\\Z")){
-            errors.put("cpf", INVALID);
-            return;
-        }
-        this.cpf = cpf;
-    }
-    public void setEmail(String email){
-        if(email == null){
-            errors.put("email", MISSING_VALUE);
-            return;
-        }
-        if(email.length() > 60){
-            errors.put("email", OVERFLOW);
-            return;
-        }
-        if(!email.matches("\\A[a-zA-Z]+[@][a-zA-Z]+[.][a-zA-Z]+([.][a-zA-Z]+)*\\Z")){
-            errors.put("email", INVALID);
-            return;
-        }
-        this.email = email;
-    }
-    public void setTelefone1(String telefone){
-        if(telefone == null){
-            errors.put("telefone1", MISSING_VALUE);
-            return;
-        }
-        try{
-            Integer.parseInt(telefone);
-        }
-        catch(NumberFormatException e){
-            errors.put("telefone1", INVALID);
-            return;
-        }
-        if(Math.abs(Integer.parseInt(telefone)) > 2147483647){
-            errors.put("telefone1", OVERFLOW);
-            return;
-        }
-        this.telefone_1 = Integer.parseInt(telefone);
-    }
-    public void setTelefone2(String telefone){
-        if(telefone == null) return;
-        try{
-            Integer.parseInt(telefone);
-        }
-        catch(NumberFormatException e){
-            errors.put("telefone2", INVALID);
-            return;
-        }
-        if(Math.abs(Integer.parseInt(telefone)) > 2147483647){
-            errors.put("telefone2", OVERFLOW);
-            return;
-        }
-        this.telefone_2 = Integer.parseInt(telefone);
-    }
-    public void setSexo(String sexo){
-        if(sexo == "M" || sexo == "F"){
-            errors.put("sexo", MISSING_VALUE);
-            return;
-        }
-        this.sexo = sexo;
-    }
-    public void setEstado(String estado){
-        if(estado == null){
-            errors.put("estado", MISSING_VALUE);
-            return;
-        }
-        if(estado.length() > 45){
-            errors.put("estado", OVERFLOW);
-            return;
-        }
-        this.estado = estado;
-    }
-    public void setCidade(String cidade){
-        if(cidade == null){
-            errors.put("cidade", MISSING_VALUE);
-            return;
-        }
-        if(cidade.length() > 45){
-            errors.put("cidade", OVERFLOW);
-            return;
-        }
-        this.cidade = cidade;
-    }
-    public void setBairro(String bairro){
-        if(bairro == null){
-            errors.put("bairro", MISSING_VALUE);
-            return;
-        }
-        if(bairro.length() > 45){
-            errors.put("bairro", OVERFLOW);
-            return;
-        }
-        this.bairro = bairro;
-    }
-    public void setRua(String rua){
-        if(rua == null){
-            errors.put("rua", MISSING_VALUE);
-            return;
-        }
-        if(rua.length() > 45){
-            errors.put("rua", OVERFLOW);
-            return;
-        }
-        this.rua = rua;
-    }
-    public void setNumero(String numero){
-        if(numero == null){
-            errors.put("numero", MISSING_VALUE);
-            return;
-        }
-        try{
-            Integer.parseInt(numero);
-        }
-        catch(NumberFormatException e){
-            errors.put("numero", INVALID);
-            return;
-        }
-        if(Math.abs(Integer.parseInt(numero)) > 2147483647){
-            errors.put("numero", OVERFLOW);
-            return;
-        }
-        this.num_residencia = Integer.parseInt(numero);
-    }
-    public void setComplemento(String complemento){
-        if(complemento == null){
-            return;
-        }
-        if(complemento.length() > 10){
-            errors.put("complemento", OVERFLOW);
-            return;
-        }
-        this.complemento = complemento;
-    }
-    
-    
+
     static public List<Map> getResources(String param){
         List<Map> resources = new ArrayList<>();
         Map<String, String> resource;
@@ -246,5 +122,78 @@ public class User extends Model {
 
     static public int count(String params){
         return 3;
+    }
+    
+    // All set functions
+
+    public void validNome(String nome){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("length", 255);
+        }};
+        validString("nome", nome, false, params);
+    }
+    public void validCpf(String cpf){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("regex", "\\A[0-9]{3}([.][0-9]{3}){2}[-][0-9]{2}\\Z");
+        }};
+        validString("cpf", cpf, false, params);
+    }
+    public void validEmail(String email){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("regex", "\\A[a-zA-Z]+[@][a-zA-Z]+[.][a-zA-Z]+([.][a-zA-Z]+)*\\Z");
+            put("length", 60);
+        }};
+        validString("email", email, false, params);
+    }
+    public void validTelefone1(Integer telefone){
+        validInteger("telefone_1", telefone, false, new HashMap<String, Object>());
+    }
+    public void validTelefone2(Integer telefone){
+        validInteger("telefone_2", telefone, true, new HashMap<String, Object>());
+    }
+    public void validSexo(String sexo){
+        List<Object> options = new ArrayList<Object>(Arrays.asList("M","F","O"));
+        validSelect("sexo", sexo, options, new HashMap<String, Object>());
+    }
+    public void validEstado(String estado){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("length", 45);
+        }};
+        validString("estado", estado, false, params);
+    }
+    public void validCidade(String cidade){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("length", 45);
+        }};
+        validString("cidade", cidade, false, params);
+    }
+    public void validBairro(String bairro){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("length", 45);
+        }};
+        validString("bairro", bairro, false, params);
+    }
+    public void validRua(String rua){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("length", 45);
+        }};
+        validString("rua", rua, false, params);
+    }
+    public void validNumero(Integer numero){
+        validInteger("numero", numero, false, new HashMap<String, Object>());
+    }
+    public void validComplemento(String complemento){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("length", 10);
+        }};
+        validString("complemento", complemento, true, params);
     }
 }

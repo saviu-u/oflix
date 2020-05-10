@@ -26,7 +26,7 @@
             <header></header>
             <main>
                 <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
-                <form action="<% out.println((String) request.getAttribute("pathToSearch")); %>/new" method="POST">
+                <form action="<% out.println((String) request.getAttribute("pathToSearch")); %>" method="GET">
                     <label for="nome">Nome:</label><br>
                     <input id="nome" type="text" value="John"><br><br>
                     <label for="cpf">CPF:</label><br>

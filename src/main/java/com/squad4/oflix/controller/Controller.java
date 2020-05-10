@@ -38,7 +38,7 @@ public class Controller extends HttpServlet {
         // /oflix/usuarios for example
         request.setAttribute(
             "pathToSearch",
-            request.getContextPath() + request.getServletPath()
+            request.getRequestURI()
         );
 
         // Add full path to a request
