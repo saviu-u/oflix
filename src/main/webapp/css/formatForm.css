@@ -1,0 +1,80 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10/05/2020, 13:17:59
+    Author     : thiago
+*/
+
+            /* form.css */
+            fieldset{
+                border: medium none !important;
+                min-width: 100%;
+                padding: 10px 0 0 0;
+                width: 100%;
+                
+            }
+            
+            .form input[type="tel"],
+            .form input[type="text"],
+            .form input[type="email"],
+            .form button[type="submit"]
+            
+            {
+                width: 100%;
+                border: 1px solid #ccc;
+                background: #FFF;
+                margin: 0 0 5px;
+                padding: 10px;
+            }
+            .form button[type="submit"] {
+                cursor: pointer;
+                width: 100%;
+                border: none;
+                background: #299be4;
+                color: #FFF;
+                margin: 0 0 5px;
+                padding: 10px;
+                font-size: 15px;
+            }
+            
+            .tipo_sexo{
+                font-size: 15px;
+            }
+
+            label{
+                font-size: 18px;
+                padding-left: 5px;
+            }
+            select{
+                width: 100%;
+                border: 1px solid #ccc;
+                background: #FFF;
+                margin: 0 0 5px;
+                padding: 10px;
+            }
+            .fiel_radio{
+                display: block;
+                position: relative;
+                padding-left: 35px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                font-size: 22px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .form button[type="submit"]:hover {
+                background: #f5f5f5;
+                -webkit-transition: background 0.3s ease-in-out;
+                -moz-transition: background 0.3s ease-in-out;
+                transition: background-color 0.3s ease-in-out;
+                color: black;
+            }
+            .form button[type="submit"]:active {
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+            }           
+            /* fim */
