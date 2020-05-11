@@ -11,6 +11,7 @@ import java.util.Map;
 public abstract class Model {
     static final String MISSING_VALUE = "campo obrigatório";
     static final String OVERFLOW = "máximo de caracteres excedido";
+    static final String UNDERFLOW = "muito curto";
     static final String INVALID_FORMAT = "formato inválido";
     static final String INVALID_VALUE = "campo inválido";
     static final int DEFAULT_LIMIT = 12;
@@ -98,6 +99,10 @@ public abstract class Model {
         }
         if(params.get("length") != null && value.length() > (int) params.get("length")){
             errors.put(key, OVERFLOW);
+            return;
+        }
+        if(params.get("minimum") != null && value.length() <= (int) params.get("length")){
+            errors.put(key, UNDERFLOW);
             return;
         }
         errors.remove(key);

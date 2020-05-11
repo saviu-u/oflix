@@ -16,11 +16,10 @@ public class User extends Model {
     private String nome_pes = null;
     private String cpf = null;
     private String email = null;
+    private String senha = null;
     private Integer telefone_1 = null;
     private Integer telefone_2 = null;
     private String sexo = null;
-    private String senha = null;
-    
     private String estado = null;
     private String cidade = null;
     private String bairro = null;
@@ -36,6 +35,7 @@ public class User extends Model {
         try {this.nome_pes = (paramList.get("nome")[0]);} catch(Exception e) {}
         try {this.cpf = (paramList.get("cpf")[0]);} catch(Exception e) {}
         try {this.email = (paramList.get("email")[0]);} catch(Exception e) {}
+        try {this.senha = (paramList.get("senha")[0]);} catch(Exception e) {}
         try {this.telefone_1 = Integer.parseInt(paramList.get("telefone1")[0]);} catch(Exception e) {}
         try {this.telefone_2 = Integer.parseInt(paramList.get("telefone2")[0]);} catch(Exception e) {}
         try {this.sexo = (paramList.get("sexo")[0]);} catch(Exception e) {}
@@ -53,6 +53,7 @@ public class User extends Model {
         validNome(nome_pes);
         validCpf(cpf);
         validEmail(email);
+        validSenha(senha);
         validTelefone1(telefone_1);
         validTelefone2(telefone_2);
         validSexo(sexo);
@@ -63,7 +64,7 @@ public class User extends Model {
         validNumero(num_residencia);
         validComplemento(complemento);
         
-        return !getErrors().isEmpty();
+        return getErrors().isEmpty();
     }
     
     @Override
@@ -147,6 +148,14 @@ public class User extends Model {
             put("length", 60);
         }};
         validString("email", email, false, params);
+    }
+    public void validSenha(String senha){
+        Map<String, Object> params = new HashMap<String, Object>()
+        {{
+            put("length", 10);
+            put("minimum", 8);
+        }};
+        validString("senha", senha, false, params);
     }
     public void validTelefone1(Integer telefone){
         validInteger("telefone_1", telefone, false, new HashMap<String, Object>());

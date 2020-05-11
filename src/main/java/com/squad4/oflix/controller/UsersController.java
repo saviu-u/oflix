@@ -33,13 +33,15 @@ public class UsersController extends Controller {
             throws ServletException, IOException {
         User newUser = new User(request.getParameterMap());
         
-        request.setAttribute("method", "Criar");
+        request.setAttribute("method", "Novo");
         
         if(newUser.save()){
+            response.sendRedirect(request.getAttribute("simplePath") + "/usuarios");
             request.getRequestDispatcher("/Usuario/index.jsp").forward(request, response);
         }
         else{
             request.setAttribute("errors", newUser.getErrors());
+            request.setAttribute("params", request.getParameterMap());
             request.getRequestDispatcher("/Usuario/form.jsp").forward(request, response);
         }
     }

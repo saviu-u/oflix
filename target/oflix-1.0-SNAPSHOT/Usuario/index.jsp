@@ -10,20 +10,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="css/format.css">
+        <link rel="stylesheet" type="text/css" href="/oflix/css/format.css">
+        <link rel="stylesheet" type="text/css" href="/oflix/css/body.css">
+        <link rel="stylesheet" type="text/css" href="/oflix/css/list.css">
+        <link rel="stylesheet" type="text/css" href="/oflix/css/header.css">
+        <link rel="stylesheet" type="text/css" href="/oflix/css/searchbar.css">
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Usuários</title>
-        <style>
-            * {box-sizing: border-box;}
-            body {
-                background: #f5f5f5;
-                margin: 0;
-                font-family: Arial, Helvetica, sans-serif;
-            }
-            <jsp:include page="../WEB-INF/Utilidades/listcss.jsp"></jsp:include>
-            <jsp:include page="../WEB-INF/Utilidades/headercss.jsp"></jsp:include>
-            <jsp:include page="../WEB-INF/Utilidades/searchbarcss.jsp"></jsp:include>
-        </style>
     </head>
     <body>
         <div class="container">
