@@ -9,6 +9,6 @@
     <% out.println((String) request.getAttribute("pathToSearch")); %>
     ">
         <input type="text" placeholder="Search.." name="search" class="textbox">
-        <button type="submit" class="icon"><img src="/oflix/img/search3.png"></button>
+        <button type="submit" class="icon"><img class= "img-search" src="/oflix/img/search_1.png"></button>
     </form>
 </div>

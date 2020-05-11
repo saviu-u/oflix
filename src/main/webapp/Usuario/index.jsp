@@ -21,32 +21,40 @@
     </head>
     <body>
         <div class="container">
-            <header></header>
+            <header>
+                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>     
+            </header>
+                <jsp:include page="../WEB-INF/Utilidades/authentication_header.jsp"></jsp:include>
             <main>
-                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
-                <jsp:include page="../WEB-INF/Utilidades/searchbar.jsp"></jsp:include>
-                <table class="list">
-                    <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Funçao</th>
-                    </tr>
+                <div class="background">
+                    <jsp:include page="../WEB-INF/Utilidades/searchbar.jsp"></jsp:include>
+                     <table class="list">
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Funçao</th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                        
                     
                     <!-- Criação dos dados da tabela -->
-                    <%
-                        List<Map> usuarios = (List) request.getAttribute("resources");
-                        for (int i = 0; i < usuarios.size(); i++) {
-                            out.println("<tr>");
-                            out.println("<td>" + usuarios.get(i).get("nome") + "</td>");
-                            out.println("<td>" + usuarios.get(i).get("cpf") + "</td>");
-                            out.println("<td>" + usuarios.get(i).get("funcao") + "</td>");
-                            out.println("</tr>");
-                        }
-                    %>
-                </table>
-                <jsp:include page="../WEB-INF/Utilidades/pagecounters.jsp"></jsp:include>
+                        <%
+                            List<Map> usuarios = (List) request.getAttribute("resources");
+                            for (int i = 0; i < usuarios.size(); i++) {
+                                out.println("<tr>");
+                                out.println("<td>" + usuarios.get(i).get("nome") + "</td>");
+                                out.println("<td>" + usuarios.get(i).get("cpf") + "</td>");
+                                out.println("<td>" + usuarios.get(i).get("funcao") + "</td>");
+                                out.println("<td><a href=''><img class='img-delete-edit' src='/oflix/img/edit.png'><a href=''><img class='img-delete-edit'src='/oflix/img/lixo.png'></td>");
+                                out.println("</tr>");
+                            }
+                        %>
+                    </table>
+                    
+                    <jsp:include page="../WEB-INF/Utilidades/pagecounters.jsp"></jsp:include>
+                </div>
             </main>
-            <footer></footer>
+            
         </div>
     </body>
 </html>

@@ -25,9 +25,12 @@
                 if(errors == null) errors= new HashMap<String, String>();
             %>
             <div class="container">
-                <header></header>
+                <header>
+                    <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+                </header>
+                <jsp:include page="../WEB-INF/Utilidades/authentication_header.jsp"></jsp:include>
                 <main>
-                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+                    <div class="background">
                 <form class="form" method="POST">
                     <div>
                         <label class="category">Dados pessoais: </label>
@@ -135,9 +138,11 @@
                     <fieldset>
                        <button name="submit" type="submit" data-submit="...Sending">Enviar</button>
                     </fieldset>
-                </form>                   
+                </form>
+                    </div>
             </main>
-            <footer></footer>
+                        
+            
         </div>
     </body>
 </html>
