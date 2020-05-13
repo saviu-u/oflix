@@ -17,14 +17,7 @@ public abstract class Model {
     static final int DEFAULT_LIMIT = 12;
     static final int DEFAULT_PAGE = 1;
     
-    // Just for temp storage
-    static int limit = DEFAULT_LIMIT;
-    static int page = DEFAULT_PAGE;
-    static private String paramCache;
-    
     private Map<String, String> errors = new HashMap<>();
-    private Map<String, String> tempFields;
-    private List<String> tempArray;
     
     public Model(){}
     public Model(Map<String, String[]> paramList){}
@@ -33,31 +26,17 @@ public abstract class Model {
         return errors;
     }
     
-    static public List<Map> getResources(String param, int page, int limit){
-        Model.limit = limit;
-        Model.page = page;
-        return getResources(param);
-    }
-    
-    static public List<Map> getResources(String param, int page){
-        Model.page = page;
-        return getResources(param);
-    }
-    
     static public List<Map> getResources(String param){
         return null;
     }
     
-    static public int pageQuantity(String param, int limit){
-        Model.limit = limit;
-        return pageQuantity(param);
-    };
-    
+    /*
     static public int pageQuantity(String param){
         int temp_limit = limit;
         Model.limit = DEFAULT_LIMIT;
         return (int) Math.ceil(count(param) / (float) temp_limit);
     };
+    */
     
     static public int count(String params){
         return -1;

@@ -53,7 +53,7 @@ public class User extends Model {
         validNome(nome_pes);
         validCpf(cpf);
         validEmail(email);
-        validSenha(senha);
+        // validSenha(senha);
         validTelefone1(telefone_1);
         validTelefone2(telefone_2);
         validSexo(sexo);
@@ -88,9 +88,25 @@ public class User extends Model {
         return true;
     }
 
-    static public List<Map> getResources(String param){
+    static public Map<String, Object> getResources(Map<String, Object> params){
+        // Mandatory vars
+        Map<String, Object> finalReturn = new HashMap();
+        int count = 1;
+        int page = DEFAULT_PAGE;
+        int limit = DEFAULT_LIMIT;
+        String where = null;
+        String search = null;
         List<Map> resources = new ArrayList<>();
         Map<String, String> resource;
+        
+        // Set params by received params
+        
+        if(params.containsKey("page")) page = (int) params.get("page");
+        if(params.containsKey("limit")) limit = (int) params.get("limit");
+        if(params.containsKey("where")) where = (String) params.get("where");
+        if(params.containsKey("search")) search = (String) params.get("search");
+        
+        // Starts threatments
         
         String[] NameListArray = {
             "Roberto",
@@ -115,10 +131,11 @@ public class User extends Model {
             resource.put("funcao", FuncaoListArray[i]);
             resources.add(resource);
         }
+        
+        finalReturn.put("resources", resources);
+        finalReturn.put("pageQuantity", (int) Math.ceil(count / (float) limit));
 
-        User.limit = DEFAULT_LIMIT;
-        User.page = DEFAULT_PAGE;
-        return resources;
+        return finalReturn;
     }
 
     static public int count(String params){

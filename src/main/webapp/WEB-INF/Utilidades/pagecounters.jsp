@@ -6,8 +6,11 @@
 
 <%@page import="java.util.Map"%>
 <%
+    // Page numbers
     int pages = (int) request.getAttribute("pageNumbers");
+    // Get the path for inserting on the <a> tag
     String path = (String) request.getAttribute("path");
+    // Get all the params so they can continue on the path
     Map<String, String[]> params = (Map<String, String[]>) request.getAttribute("params");
     
     String param = "";
@@ -18,11 +21,9 @@
         param += key + "=" + params.get(key)[0] + "&";
     }
     
-    for(int i=0; i < pages; i++){
+    for(int i=1; i <= pages; i++){
         out.println(
-            "<a href= " + path + "?" + param + "offset=" + i * 12 + ">" +
-            (i + 1) +
-            "</a>"
+            "<a href= " + path + "?" + param + "page=" + i + ">" + i + "</a>"
         );
     }
 %>

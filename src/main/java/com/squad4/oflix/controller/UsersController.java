@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.squad4.oflix.model.*;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/usuarios/*"})
 
@@ -16,8 +17,12 @@ public class UsersController extends Controller {
     @Override
     protected void doIndex(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("resources" , User.getResources(""));
-        request.setAttribute("pageNumbers", User.pageQuantity(""));
+        Map<String, Object> params = (Map) request.getParameterMap();
+        // params.put("where", null);
+        params = User.getResources(params);
+        request.setAttribute("resources" , params.get("resources"));
+        request.setAttribute("pageNumbers", params.get("pageQuantity"));
+        System.out.println("ALLL: " + params.get("pageQuantity"));
         request.getRequestDispatcher("/Usuario/index.jsp").forward(request, response);
     }
     
