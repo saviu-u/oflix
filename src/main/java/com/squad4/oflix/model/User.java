@@ -17,14 +17,17 @@ public class User extends Model {
     private String cpf = null;
     private String email = null;
     private String senha = null;
-    private Integer telefone_1 = null;
-    private Integer telefone_2 = null;
+    // Integer
+    private String telefone_1 = null;
+    // Integer
+    private String telefone_2 = null;
     private String sexo = null;
     private String estado = null;
     private String cidade = null;
     private String bairro = null;
     private String rua = null;
-    private Integer num_residencia = null;
+    // Integer
+    private String num_residencia = null;
     private String complemento = null;
     
     private String id_end = null;
@@ -36,14 +39,14 @@ public class User extends Model {
         try {this.cpf = (paramList.get("cpf")[0]);} catch(Exception e) {}
         try {this.email = (paramList.get("email")[0]);} catch(Exception e) {}
         try {this.senha = (paramList.get("senha")[0]);} catch(Exception e) {}
-        try {this.telefone_1 = Integer.parseInt(paramList.get("telefone1")[0]);} catch(Exception e) {}
-        try {this.telefone_2 = Integer.parseInt(paramList.get("telefone2")[0]);} catch(Exception e) {}
+        try {this.telefone_1 = (paramList.get("telefone_1")[0]);} catch(Exception e) {}
+        try {this.telefone_2 = (paramList.get("telefone_2")[0]);} catch(Exception e) {}
         try {this.sexo = (paramList.get("sexo")[0]);} catch(Exception e) {}
         try {this.estado = (paramList.get("estado")[0]);} catch(Exception e) {}
         try {this.cidade = (paramList.get("cidade")[0]);} catch(Exception e) {}
         try {this.bairro = (paramList.get("bairro")[0]);} catch(Exception e) {}
         try {this.rua = (paramList.get("rua")[0]);} catch(Exception e) {}
-        try {this.num_residencia = Integer.parseInt(paramList.get("numero")[0]);} catch(Exception e) {}
+        try {this.num_residencia = (paramList.get("numero")[0]);} catch(Exception e) {}
         try {this.complemento = (paramList.get("complemento")[0]);} catch(Exception e) {}
     }
     
@@ -101,10 +104,10 @@ public class User extends Model {
         
         // Set params by received params
         
-        if(params.containsKey("page")) page = (int) params.get("page");
-        if(params.containsKey("limit")) limit = (int) params.get("limit");
-        if(params.containsKey("where")) where = (String) params.get("where");
-        if(params.containsKey("search")) search = (String) params.get("search");
+        try{ if(params.containsKey("page")) page = Integer.parseInt((String)params.get("page")); }catch(NumberFormatException e){}
+        try{ if(params.containsKey("limit")) limit = Integer.parseInt((String)params.get("limit")); }catch(NumberFormatException e){}
+        try{ if(params.containsKey("where")) where = (String) params.get("where"); }catch(Exception e){}
+        try{ if(params.containsKey("search")) search = (String) params.get("search"); }catch(Exception e){}
         
         // Starts threatments
         
@@ -174,10 +177,10 @@ public class User extends Model {
         }};
         validString("senha", senha, false, params);
     }
-    public void validTelefone1(Integer telefone){
+    public void validTelefone1(String telefone){
         validInteger("telefone_1", telefone, false, new HashMap<String, Object>());
     }
-    public void validTelefone2(Integer telefone){
+    public void validTelefone2(String telefone){
         validInteger("telefone_2", telefone, true, new HashMap<String, Object>());
     }
     public void validSexo(String sexo){
@@ -212,7 +215,7 @@ public class User extends Model {
         }};
         validString("rua", rua, false, params);
     }
-    public void validNumero(Integer numero){
+    public void validNumero(String numero){
         validInteger("numero", numero, false, new HashMap<String, Object>());
     }
     public void validComplemento(String complemento){

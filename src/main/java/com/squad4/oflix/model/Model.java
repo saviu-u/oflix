@@ -87,11 +87,22 @@ public abstract class Model {
         errors.remove(key);
     }
     
-    void validInteger(String key, Integer value, boolean optional, Map<String, Object> params){
-        if(value == null){
+    void validInteger(String key, String value, boolean optional, Map<String, Object> params){
+        Integer num;
+        
+        if(value == null || value.isEmpty()){
             if(!optional) errors.put(key, MISSING_VALUE);
             return;
         }
+
+        try{
+            num = Integer.parseInt(value);
+        }
+        catch(Exception e){
+            errors.put(key, INVALID_VALUE);
+            return;
+        }
+
         errors.remove(key);
     }
     
