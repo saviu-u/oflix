@@ -8,7 +8,7 @@
 <%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html>  
     <head>
         <link rel="stylesheet" type="text/css" href="/oflix/css/format.css">
         <link rel="stylesheet" type="text/css" href="/oflix/css/body.css">

@@ -20,6 +20,13 @@
         <title>Usuários</title>
     </head>
     <body>
+        <%
+            String path = (String) request.getAttribute("path");
+            if (!path.substring(path.length() - 1).equals("/")) {
+                path += "/";
+            }
+
+        %>
         <div class="container">
             <header>
                 <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>     
@@ -27,7 +34,10 @@
                 <jsp:include page="../WEB-INF/Utilidades/authentication_header.jsp"></jsp:include>
             <main>
                 <div class="background">
-                    <jsp:include page="../WEB-INF/Utilidades/searchbar.jsp"></jsp:include>
+                    <jsp:include page="../WEB-INF/Utilidades/searchbar.jsp"></jsp:include> 
+                    <a href= "<% out.println(path);%>new">
+                       <button class = "add_button">+Add</button>
+                    </a>
                      <table class="list">
                         <tr>
                             <th>Nome</th>
@@ -40,7 +50,6 @@
                     
                     <!-- Criação dos dados da tabela -->
                         <%
-                            String path = (String) request.getAttribute("path");
                             if(!path.substring(path.length() - 1).equals("/")) path += "/";
                             List<Map> usuarios = (List) request.getAttribute("resources");
                             for (int i = 0; i < usuarios.size(); i++) {
