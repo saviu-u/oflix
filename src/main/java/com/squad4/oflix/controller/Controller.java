@@ -36,10 +36,7 @@ public class Controller extends HttpServlet {
 
         // Gets a helper for the search bar
         // /oflix/usuarios for example
-        request.setAttribute(
-            "pathToSearch",
-            request.getRequestURI()
-        );
+        request.setAttribute("pathToSearch",request.getRequestURI());
 
         // Add full path to a request
         path += request.getServletPath();
@@ -56,6 +53,7 @@ public class Controller extends HttpServlet {
         
         // Adds the ID to a atribute
         request.setAttribute("id", id);
+        request.setAttribute("method", action);
         response.setContentType("text/html;charset=UTF-8");
         
         if (badRequest){ response.setStatus(404); return false; }
@@ -77,6 +75,9 @@ public class Controller extends HttpServlet {
             case "new":
                 doNew(request, response);
                 break;
+            case "delete":
+                doDestroy(request, response);
+                break;
             default:
                 response.setStatus(404);
                 break;
@@ -87,33 +88,17 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        if("new".equals(action)){
-            doCreate(request, response);
-            return;
+        switch (action) {
+            case "edit":
+                doUpdate(request, response);
+                break;
+            case "new":
+                doCreate(request, response);
+                break;
+            default:
+                response.setStatus(404);
+                break;
         }
-        response.setStatus(404);
-    }
-    
-    @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        if("index".equals(action)){
-            doDestroy(request, response);
-            return;
-        }
-        response.setStatus(404);
-    }
-    
-    @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        if("edit".equals(action)){
-            doUpdate(request, response);
-            return;
-        }
-        response.setStatus(404);
     }
     
     protected void doIndex(HttpServletRequest request, HttpServletResponse response)
@@ -155,6 +140,12 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "";
     }// </editor-fold>
+    
+    public Map<String, String[]> rejectParams(Map<String, String[]> params, String[] reject){
+        Map<String, String[]> paramsClone = new HashMap(params);
+        for(String key : reject){ paramsClone.remove(key); }
+        return paramsClone;
+    }
     
     private void AddParameters(HttpServletRequest request, HttpServletResponse response){
     }

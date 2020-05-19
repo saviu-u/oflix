@@ -1,8 +1,12 @@
 package com.squad4.oflix.model;
 
+import DAO.DAO;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,6 +18,7 @@ public abstract class Model {
     static final String UNDERFLOW = "muito curto";
     static final String INVALID_FORMAT = "formato inválido";
     static final String INVALID_VALUE = "campo inválido";
+    static final String ALREADY_EXIST = "já está em uso";
     static final int DEFAULT_LIMIT = 12;
     static final int DEFAULT_PAGE = 1;
     
@@ -21,6 +26,7 @@ public abstract class Model {
     
     public Model(){}
     public Model(Map<String, String[]> paramList){}
+    public void update(Map<String, String[]> paramList){}
     
     public Map<String, String> getErrors(){
         return errors;
@@ -29,14 +35,6 @@ public abstract class Model {
     static public List<Map> getResources(String param){
         return null;
     }
-    
-    /*
-    static public int pageQuantity(String param){
-        int temp_limit = limit;
-        Model.limit = DEFAULT_LIMIT;
-        return (int) Math.ceil(count(param) / (float) temp_limit);
-    };
-    */
     
     static public int count(String params){
         return -1;
@@ -80,10 +78,24 @@ public abstract class Model {
             errors.put(key, OVERFLOW);
             return;
         }
-        if(params.get("minimum") != null && value.length() <= (int) params.get("length")){
+        if(params.get("minimum") != null && value.length() <= (int) params.get("minimum")){
             errors.put(key, UNDERFLOW);
             return;
         }
+        if(params.get("uniqueness") != null){
+            try {
+                Connection cnt = new DAO().connect();
+                String sql = "SELECT COUNT(*) FROM " + (String) params.get("uniqueness") + " WHERE " + key + " = ?";
+                PreparedStatement stmt = cnt.prepareStatement(sql);
+                stmt.setString(1, value);
+                ResultSet rs = stmt.executeQuery();
+                rs.next();
+                if(rs.getInt(1) != 0) errors.put(key, ALREADY_EXIST);
+                stmt.close();
+                return;
+            } catch (ClassNotFoundException | SQLException ex) {}
+        }
+
         errors.remove(key);
     }
     
@@ -98,7 +110,7 @@ public abstract class Model {
         try{
             num = Integer.parseInt(value);
         }
-        catch(Exception e){
+        catch(NumberFormatException e){
             errors.put(key, INVALID_VALUE);
             return;
         }

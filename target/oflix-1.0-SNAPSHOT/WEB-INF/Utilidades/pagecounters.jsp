@@ -14,9 +14,8 @@
     Map<String, String[]> params = (Map<String, String[]>) request.getAttribute("params");
     
     String param = "";
-    for(int i = 0; i < params.size(); i++){
-        String key = params.keySet().toArray()[i].toString();
-        if("offset".equals(key)) continue;
+    for(String key : params.keySet()){
+        if("page".equals(key)) continue;
 
         param += key + "=" + params.get(key)[0] + "&";
     }
