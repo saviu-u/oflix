@@ -26,41 +26,14 @@ public abstract class Model {
     
     public Model(){}
     public Model(Map<String, String[]> paramList){}
-    public void update(Map<String, String[]> paramList){}
     
     public Map<String, String> getErrors(){
         return errors;
     }
     
-    static public List<Map> getResources(String param){
-        return null;
-    }
-    
-    static public int count(String params){
-        return -1;
-    }
-    
     public boolean valid(){
         errors = new HashMap<>();
         return false;
-    }
- 
-    //public Model create(Map<String, String[]> paramList){
-    //    Model subclass = new Model(paramList) {};
-    //    subclass.save();
-    //    return subclass;
-    //}
-
-    public boolean save(){
-        return false;
-    }
-    
-    public Model find(int id){
-        return null;
-    }
-    
-    public List<Model> where(){
-        return null;
     }
     
     // Helpers
@@ -85,7 +58,7 @@ public abstract class Model {
         if(params.get("uniqueness") != null){
             try {
                 Connection cnt = new DAO().connect();
-                String sql = "SELECT COUNT(*) FROM " + (String) params.get("uniqueness") + " WHERE " + key + " = ?";
+                String sql = "SELECT COUNT(*) FROM " + params.get("uniqueness") + " WHERE " + key + " = ? AND id != " + params.get("id") + ";";
                 PreparedStatement stmt = cnt.prepareStatement(sql);
                 stmt.setString(1, value);
                 ResultSet rs = stmt.executeQuery();

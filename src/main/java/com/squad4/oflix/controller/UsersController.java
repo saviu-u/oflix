@@ -55,7 +55,47 @@ public class UsersController extends Controller {
     @Override
     protected void doEdit(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("method", "Novo");
+        Map<String, Object> params = new HashMap();
+        params.put("where", "NOT id_func = 1");
+
+        User newUser = User.find((int) request.getAttribute("id"), params);
+        
+        request.setAttribute("params", newUser.toMap());
+        request.setAttribute("method", "Editar");
+
+        try { request.setAttribute("functionSelect", User.selectFunction()); } catch (SQLException | ClassNotFoundException ex) {}
         request.getRequestDispatcher("/Usuario/form.jsp").forward(request, response);
+    }
+    
+    @Override
+    protected void doUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Map<String, Object> params = new HashMap();
+        params.put("where", "NOT id_func = 1");
+        String[] rejectedParams = {"ativo", "cpf"};
+        User newUser = User.find((int) request.getAttribute("id"), params);
+        newUser.update(rejectParams(request.getParameterMap(), rejectedParams));
+        
+        if(newUser.save()){
+            response.sendRedirect(request.getAttribute("simplePath") + "/usuarios");
+        }
+        else{
+            request.setAttribute("method", "Editar");
+            try { request.setAttribute("functionSelect", User.selectFunction()); } catch (SQLException | ClassNotFoundException ex) {}
+            request.setAttribute("errors", newUser.getErrors());
+            request.setAttribute("params", request.getParameterMap());
+            request.getRequestDispatcher("/Usuario/form.jsp").forward(request, response);
+        }
+    }
+    
+    @Override
+    protected void doDestroy(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Map<String, Object> params = new HashMap();
+        params.put("where", "NOT id_func = 1");
+        User newUser = User.find((int) request.getAttribute("id"), params);
+        newUser.destroy();
+        
+        response.sendRedirect(request.getAttribute("simplePath") + "/usuarios");
     }
 }

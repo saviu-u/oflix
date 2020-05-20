@@ -17,16 +17,20 @@
         <link rel="stylesheet" type="text/css" href="/oflix/css/header.css">
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Usuários - <% out.println((String) request.getAttribute("method")); %></title>
+        <%
+            String method = (String) request.getAttribute("method");
+            boolean edit = method.equals("Editar");
+        %>
+        <title>Usuários - <% out.println(method); %></title>
     </head>
         <body>
             <%
                 Map<String, String> errors = (Map<String, String>) request.getAttribute("errors");
                 Map<String, String[]> params = (Map<String, String[]>) request.getAttribute("params");
                 Map<String, String> functions = (Map<String, String>) request.getAttribute("functionSelect");
-                if(params == null) params = new HashMap<String, String[]>();
-                if(errors == null) errors = new HashMap<String, String>();
-                if(functions == null) functions = new HashMap<String, String>();
+                if(params == null) params = new HashMap();
+                if(errors == null) errors = new HashMap();
+                if(functions == null) functions = new HashMap();
             %>
             <div class="container">
                 <header>
@@ -41,7 +45,7 @@
                             <fieldset <% if(errors.get("nome") != null) out.println("class=error"); %>>
                                 <label class="required">Nome</label>
                                 <input name="nome" type="text" placeholder="Nome Sobrenome"
-                                    <% if(params.get("nome") != null) out.println("value="+ params.get("nome")[0]); %>
+                                    <% if(params.get("nome") != null) out.println("value=\""+ params.get("nome")[0] + "\""); %>
                                 >
                                 <% if(errors.get("nome") != null) out.println("<div>"+ errors.get("nome") +"</div>"); %>
                             </fieldset>
@@ -62,14 +66,15 @@
                             <fieldset <% if(errors.get("cpf") != null) out.println("class=error"); %>>
                                 <label class="required">CPF</label>
                                 <input name="cpf" type="text" maxlength="14" placeholder="XXX.XXX.XXX-XX"
-                                    <% if(params.get("cpf") != null) out.println("value="+ params.get("cpf")[0]); %>
+                                    <% if(edit) out.println("readonly"); %>
+                                    <% if(params.get("cpf") != null) out.println("value=\""+ params.get("cpf")[0] + "\""); %>
                                 >
                                 <% if(errors.get("cpf") != null) out.println("<div>"+ errors.get("cpf") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("email") != null) out.println("class=error"); %>>
                                 <label class="required">Email</label>
                                 <input name="email" type="email" placeholder="email@email.com"
-                                    <% if(params.get("email") != null) out.println("value="+ params.get("email")[0]); %>
+                                    <% if(params.get("email") != null) out.println("value=\""+ params.get("email")[0] + "\""); %>
                                 >
                                 <% if(errors.get("email") != null) out.println("<div>"+ errors.get("email") +"</div>"); %>
                             </fieldset>
@@ -97,14 +102,14 @@
                             <fieldset <% if(errors.get("telefone_1") != null) out.println("class=error"); %>>
                                 <label class="required">Telefone</label>
                                 <input name="telefone_1" type="tel" maxlength="8" placeholder="XXXXXXXX"
-                                    <% if(params.get("telefone_1") != null) out.println("value="+ params.get("telefone_1")[0]); %>
+                                    <% if(params.get("telefone_1") != null) out.println("value=\""+ params.get("telefone_1")[0] + "\""); %>
                                 >
                                 <% if(errors.get("telefone_1") != null) out.println("<div>"+ errors.get("telefone_1") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("telefone_2") != null) out.println("class=error"); %>>
                                 <label>Celular</label>
                                 <input name="telefone_2" type="tel" maxlength="9" placeholder="XXXXXXXXx"
-                                    <% if(params.get("telefone_2") != null) out.println("value="+ params.get("telefone_2")[0]); %>
+                                    <% if(params.get("telefone_2") != null) out.println("value=\""+ params.get("telefone_2")[0] + "\""); %>
                                 >
                                 <% if(errors.get("telefone_2") != null) out.println("<div>"+ errors.get("telefone_2") +"</div>"); %>
                             </fieldset>
@@ -115,42 +120,42 @@
                             <fieldset <% if(errors.get("estado") != null) out.println("class=error"); %>>
                                 <label class="required">Estado</label>
                                 <input name="estado" type="text" placeholder="São Paulo"
-                                    <% if(params.get("estado") != null) out.println("value="+ params.get("estado")[0]); %>
+                                    <% if(params.get("estado") != null) out.println("value=\""+ params.get("estado")[0] + "\""); %>
                                 >
                                 <% if(errors.get("estado") != null) out.println("<div>"+ errors.get("estado") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("cidade") != null) out.println("class=error"); %>>
                                 <label class="required">Cidade</label>
                                 <input name="cidade" type="text" placeholder="Ribeirão Preto"
-                                    <% if(params.get("cidade") != null) out.println("value="+ params.get("cidade")[0]); %>
+                                    <% if(params.get("cidade") != null) out.println("value=\""+ params.get("cidade")[0] + "\""); %>
                                 >
                                 <% if(errors.get("cidade") != null) out.println("<div>"+ errors.get("cidade") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("bairro") != null) out.println("class=error"); %>>
                                 <label class="required">Bairro</label>
                                 <input name="bairro" type="text" placeholder="Jardim dos Palmaers"
-                                    <% if(params.get("bairro") != null) out.println("value="+ params.get("bairro")[0]); %>
+                                    <% if(params.get("bairro") != null) out.println("value=\""+ params.get("bairro")[0] + "\""); %>
                                 >
                                 <% if(errors.get("bairro") != null) out.println("<div>"+ errors.get("bairro") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("rua") != null) out.println("class=error"); %>>
                                 <label class="required">Rua</label>
                                 <input name="rua" type="text" placeholder="Rua, Logradouro"
-                                    <% if(params.get("rua") != null) out.println("value="+ params.get("rua")[0]); %>
+                                    <% if(params.get("rua") != null) out.println("value=\""+ params.get("rua")[0] + "\""); %>
                                 >
                                 <% if(errors.get("rua") != null) out.println("<div>"+ errors.get("rua") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("numero") != null) out.println("class=error"); %>>
                                 <label class="required">Numero</label>
                                 <input name="numero" type="text" placeholder="202"
-                                    <% if(params.get("numero") != null) out.println("value="+ params.get("numero")[0]); %>
+                                    <% if(params.get("numero") != null) out.println("value=\""+ params.get("numero")[0] + "\""); %>
                                 >
                                 <% if(errors.get("numero") != null) out.println("<div>"+ errors.get("numero") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("complemento") != null) out.println("class=error"); %>>
                                 <label class>Complemento</label>
                                 <input name="complemento" type="text" placeholder="Apto 26."
-                                    <% if(params.get("complemento") != null) out.println("value="+ params.get("complemento")[0]); %>
+                                    <% if(params.get("complemento") != null) out.println("value=\""+ params.get("complemento")[0] + "\""); %>
                                 >
                                 <% if(errors.get("complemento") != null) out.println("<div>"+ errors.get("complemento") +"</div>"); %>
                             </fieldset>

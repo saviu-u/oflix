@@ -12,9 +12,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class User extends Model {
-    private String id = null;
+    // Creates all the attributes
+    public Integer id = null;
     private String id_func = null;
-    private String id_end = null;
+    private Integer id_end = null;
     private String nome_pes = null;
     private String cpf = null;
     private String email = null;
@@ -39,7 +40,7 @@ public class User extends Model {
         update(paramList);
     }
     
-    @Override
+    //Used to update the attributes
     public void update(Map<String, String[]> paramList){
         if(paramList.containsKey("nome")) this.nome_pes = paramList.get("nome")[0];
         if(paramList.containsKey("id_func")) this.id_func = paramList.get("id_func")[0];
@@ -58,6 +59,57 @@ public class User extends Model {
         if(paramList.containsKey("ativo")) this.ativo = paramList.get("ativo")[0].equals("true");
     }
     
+    // Turns the status to inactive
+    public void destroy(){
+        if(id == null) return;
+        
+        String sql = "UPDATE tb_pessoa SET ativo=false WHERE id=" + id +";";
+        try {
+            Connection conexao = new DAO().connect();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.execute();
+            
+            stmt.close();
+        } catch (ClassNotFoundException | SQLException ex) {}
+    }
+    
+    // Returns a usefull map to the front-end
+    public Map<String, String[]> toMap(){
+        Map<String, String[]> attributes = new HashMap();
+        String temp[] = {""};
+        temp[0] = this.nome_pes;
+        attributes.put("nome", temp.clone());
+        temp[0] = this.id_func;
+        attributes.put("id_func", temp.clone());
+        temp[0] = this.cpf;
+        attributes.put("cpf", temp.clone());
+        temp[0] = this.email;
+        attributes.put("email", temp.clone());
+        temp[0] = this.telefone_1;
+        attributes.put("telefone_1", temp.clone());
+        temp[0] = this.telefone_2;
+        if(this.telefone_2 == null) temp[0] = "";
+        attributes.put("telefone_2", temp.clone());
+        temp[0] = this.sexo;
+        attributes.put("sexo", temp.clone());
+        temp[0] = this.estado;
+        attributes.put("estado", temp.clone());
+        temp[0] = this.cidade;
+        attributes.put("cidade", temp.clone());
+        temp[0] = this.bairro;
+        attributes.put("bairro", temp.clone());
+        temp[0] = this.rua;
+        attributes.put("rua", temp.clone());
+        temp[0] = this.num_residencia;
+        attributes.put("numero", temp.clone());
+        temp[0] = this.complemento;
+        if(this.complemento == null) temp[0] = "";
+        attributes.put("complemento", temp.clone());
+
+        return attributes;
+    }
+    
+    // Valids all the fields
     @Override
     public boolean valid(){
         try {
@@ -81,49 +133,62 @@ public class User extends Model {
         } catch (SQLException | ClassNotFoundException ex) {}
         return false;
     }
-    
-    @Override
+
+    // Saves the data on the database
     public boolean save(){
         if(!valid()) return false;
-        //int i = 0;
-        
-        String sql0 = "DO $$\n" +
-            "DECLARE tempid bigint;\n" +
-            "BEGIN\n" +
-            "\n";
-        String sql1 = "INSERT INTO tb_endereco(estado, cidade, bairro, rua, num_residencia, complemento)\n" +
-            "VALUES\n" +
-            "( ? , ? , ? , ? , ? , ? );\n";
-        String sql2 = "RETURNING id INTO tempid;\n";
-        String sql3 = "INSERT INTO tb_pessoa(id_end, id_func, nome_pes, cpf, email, telefone_1, telefone_2, sexo, ativo)\n" +
-            "VALUES\n" +
-            "(tempid, ? , ? , ? , ? , ? , ? , ? , ? )\n";
-        String sql4 = ";END $$";
+        String sql0 = "";
+        String sql1 = ";\n";
+        String sqlI1 = "";
+        String sql2 = "";
+        String sqlI2 = "";
+        if(id == null){
+            sql0 = "DO $$\n" +
+                "DECLARE tempid bigint;\n" +
+                "BEGIN\n" +
+                "\n";
+            sqlI1 = "INSERT INTO tb_endereco(estado, cidade, bairro, rua, num_residencia, complemento)\n" +
+                "VALUES\n" +
+                "( ? , ? , ? , ? , ? , ? );\n";
+            sql1 = "RETURNING id INTO tempid;\n";
+            sqlI2 = "INSERT INTO tb_pessoa(id_end, id_func, nome_pes, email, telefone_1, telefone_2, sexo, ativo, cpf)\n" +
+                "VALUES\n" +
+                "(tempid, ? , ? , ? , ? , ? , ? , ? , ? )\n";
+            sql2 = ";END $$";
+        }
+        else{
+            sqlI1 = "UPDATE tb_endereco\n" +
+                    "SET estado= ?, cidade= ?, bairro= ?, rua= ?, num_residencia= ?, complemento= ? \n" +
+                    "WHERE ID="+ id_end;
+            sqlI2 = "UPDATE tb_pessoa\n" +
+                    "SET id_func= ?, nome_pes= ?, email= ?, telefone_1= ?, telefone_2= ?, sexo= ?, ativo= ? \n" +
+                    "WHERE id=" + id +";";
+        }
         try {
             Connection conexao = new DAO().connect();
-            PreparedStatement stmt = conexao.prepareStatement(sql1);
+            PreparedStatement stmt = conexao.prepareStatement(sqlI1);
             stmt.setString(1, estado);
             stmt.setString(2, cidade);
             stmt.setString(3, bairro);
             stmt.setString(4, rua);
             stmt.setInt(5, Integer.parseInt(num_residencia));
             stmt.setString(6, complemento);
-            sql1 = stmt.toString();
+            sqlI1 = stmt.toString();
 
-            stmt = conexao.prepareStatement(sql3);
+            stmt = conexao.prepareStatement(sqlI2);
             stmt.setInt(1, Integer.parseInt(id_func));
             stmt.setString(2, nome_pes);
-            stmt.setString(3, cpf);
-            stmt.setString(4, email);
-            stmt.setInt(5, Integer.parseInt(telefone_1));
-            stmt.setInt(6, Integer.parseInt(telefone_2));
-            stmt.setString(7, sexo);
-            stmt.setBoolean(8, ativo);
+            stmt.setString(3, email);
+            stmt.setInt(4, Integer.parseInt(telefone_1));
+            if(telefone_2 == null || telefone_2.equals("")) stmt.setObject(5, null);
+            else stmt.setInt(5, Integer.parseInt(telefone_2));
+            stmt.setString(6, sexo);
+            stmt.setBoolean(7, ativo);
+            if(this.id == null) stmt.setString(8, cpf);
             
-            sql3 = stmt.toString();
+            sqlI2 = stmt.toString();
             
-            stmt = conexao.prepareStatement(sql0 + sql1 + sql2 + sql3 + sql4);
-            System.out.println("SQL: " + stmt.toString());
+            stmt = conexao.prepareStatement(sql0 + sqlI1 + sql1 + sqlI2 + sql2);
             stmt.execute();
             
             stmt.close();
@@ -134,7 +199,73 @@ public class User extends Model {
         }
         return true;
     }
+    
+    // Finds an user by its id
+    static public User find(int id,Map<String, Object> params){
+        String where = null;
+        try{ if(params.get("where") != null) where = (String) params.get("where"); }catch(Exception e){}
 
+        String sql = "SELECT * FROM tb_pessoa INNER JOIN tb_endereco ON tb_endereco.id = id_end WHERE ";
+        if(where != null) sql += where + " AND ";
+        sql += "tb_pessoa.id = ?";
+        sql += " LIMIT(1)";
+        
+        User resource = new User();
+        Map<String, String[]> attributes = new HashMap(); 
+        String temp[] = {""};
+        String temp1[] = {"adasd"};
+        
+        try {
+            Connection cnt = new DAO().connect();
+            PreparedStatement stmt = cnt.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            boolean teste = rs.next();
+            if(!teste) return new User();
+            
+            resource.id = rs.getInt(1);
+            resource.id_end = rs.getInt(2);
+            temp[0] = rs.getString(4);
+            attributes.put("nome", temp.clone());
+            temp[0] = Integer.toString(rs.getInt(3));
+            attributes.put("id_func", temp.clone());
+            temp[0] = rs.getString("cpf");
+            attributes.put("cpf", temp.clone());
+            temp[0] = rs.getString("email");
+            attributes.put("email", temp.clone());
+            temp[0] = rs.getString("telefone_1");
+            attributes.put("telefone_1", temp.clone());
+            temp[0] = rs.getString("telefone_2");
+            attributes.put("telefone_2", temp.clone());
+            temp[0] = rs.getString("sexo");
+            attributes.put("sexo", temp.clone());
+            temp[0] = rs.getString("estado");
+            attributes.put("estado", temp.clone());
+            temp[0] = rs.getString("cidade");
+            attributes.put("cidade", temp.clone());
+            temp[0] = rs.getString("bairro");
+            attributes.put("bairro", temp.clone());
+            temp[0] = rs.getString("rua");
+            attributes.put("rua", temp.clone());
+            temp[0] = rs.getString("num_residencia");
+            attributes.put("numero", temp.clone());
+            temp[0] = rs.getString("complemento");
+            attributes.put("complemento", temp.clone());
+            
+            resource.update(attributes);
+            
+            stmt.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resource;
+    }
+
+    // Get a list of users
     static public Map<String, Object> getResources(Map<String, Object> params){
         // Mandatory vars
         Map<String, Object> finalReturn = new HashMap();
@@ -161,6 +292,7 @@ public class User extends Model {
         if(where != null) sql += "WHERE " + where;
         if(search != null){
             if(where != null) sql += " AND ";
+            else sql += "WHERE ";
             sql += "nome_pes LIKE ? || '%'";
         }
         sql += "\n";
@@ -207,7 +339,7 @@ public class User extends Model {
     public static Map<String, String> selectFunction() throws SQLException, ClassNotFoundException{
         Map<String, String> result = new HashMap();
         Connection cnt = new DAO().connect();
-        String sql = "SELECT nome_func, id FROM tb_funcao WHERE NOT id IN (1, 4)";
+        String sql = "SELECT nome_func, id FROM tb_funcao WHERE NOT id IN (1)";
         PreparedStatement stmt = cnt.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){ result.put(rs.getString(1), Integer.toString(rs.getInt(2))); }
@@ -232,15 +364,17 @@ public class User extends Model {
         {{
             put("regex", "\\A[0-9]{3}([.][0-9]{3}){2}[-][0-9]{2}\\Z");
             put("uniqueness", "tb_pessoa");
+            put("id", id);
         }};
         validString("cpf", cpf, false, params);
     }
     public void validEmail(String email){
         Map<String, Object> params = new HashMap<String, Object>()
         {{
-            put("regex", "\\A[a-zA-Z]+[@][a-zA-Z]+[.][a-zA-Z]+([.][a-zA-Z]+)*\\Z");
+            put("regex", "\\A[A-z0-9]+[@][A-z0-9]+[.][A-z0-9]+([.][A-z0-9]+)*\\Z");
             put("length", 60);
             put("uniqueness", "tb_pessoa");
+            put("id", id);
         }};
         validString("email", email, false, params);
     }
