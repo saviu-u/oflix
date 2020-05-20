@@ -5,10 +5,16 @@
 --%>
 
 <div class="topnav">
-    <a href="<%out.println((String) request.getAttribute("simplePath"));%>">Home</a>
-    <a href="<%out.println((String) request.getAttribute("simplePath"));%>/usuarios">Usuários</a>
-    <a href="<%out.println((String) request.getAttribute("simplePath"));%>/clientes">Clientes</a>
-    <a href="<%out.println((String) request.getAttribute("simplePath"));%>/categorias">Categorias</a>
-    <a href="<%out.println((String) request.getAttribute("simplePath"));%>/dvds">DVD's</a>
-    <a href="<%out.println((String) request.getAttribute("simplePath"));%>/locacao">Locação</a>
+    <%
+        String path = (String) request.getAttribute("simplePath");
+        if(path == null) path = "http://"+request.getServerName()+
+                                ":"+request.getLocalPort()+
+                                request.getContextPath();
+    %>
+    <a href="<%out.println(path);%>">Home</a>
+    <a href="<%out.println(path);%>/usuarios">Usuários</a>
+    <a href="<%out.println(path);%>/clientes">Clientes</a>
+    <a href="<%out.println(path);%>/categorias">Categorias</a>
+    <a href="<%out.println(path);%>/dvds">DVD's</a>
+    <a href="<%out.println(path);%>/locacao">Locação</a>
 </div>

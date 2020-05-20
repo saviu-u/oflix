@@ -8,10 +8,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="/oflix/css/header.css">
+        <link rel="stylesheet" type="text/css" href="/oflix/css/format.css">
+        <link rel="stylesheet" type="text/css" href="/oflix/css/body.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Home</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <header>
+            <jsp:include page="WEB-INF/Utilidades/header.jsp"></jsp:include>  
+        </header>
     </body>
 </html>

@@ -33,6 +33,7 @@ public class User extends Model {
     private String num_residencia = null;
     private String complemento = null;
     private boolean ativo = true;
+    public boolean customer = false;
 
     public User() {}
     public User(Map<String, String[]> paramList){
@@ -57,6 +58,14 @@ public class User extends Model {
         if(paramList.containsKey("numero")) this.num_residencia = paramList.get("numero")[0];
         if(paramList.containsKey("complemento")) this.complemento = paramList.get("complemento")[0];
         if(paramList.containsKey("ativo")) this.ativo = paramList.get("ativo")[0].equals("true");
+    }
+    
+    public void setCustomer(){
+        this.id_func = "1";
+    }
+    
+    public void getCustomer(){
+        System.out.println("TESTE: " + id_func);
     }
     
     // Turns the status to inactive
@@ -115,6 +124,7 @@ public class User extends Model {
         try {
             super.valid();
             validNome(nome_pes);
+            System.out.println("TESTE1: " + id_func);
             validFunc(id_func);
             validCpf(cpf);
             validEmail(email);
@@ -336,10 +346,12 @@ public class User extends Model {
         return finalReturn;
     }
     
-    public static Map<String, String> selectFunction() throws SQLException, ClassNotFoundException{
+    public static Map<String, String> selectFunction(boolean customer) throws SQLException, ClassNotFoundException{
         Map<String, String> result = new HashMap();
         Connection cnt = new DAO().connect();
-        String sql = "SELECT nome_func, id FROM tb_funcao WHERE NOT id IN (1)";
+        String param = " NOT";
+        if(customer) param = "";
+        String sql = "SELECT nome_func, id FROM tb_funcao WHERE"+ param +" id IN (1)";
         PreparedStatement stmt = cnt.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         while(rs.next()){ result.put(rs.getString(1), Integer.toString(rs.getInt(2))); }
@@ -356,7 +368,7 @@ public class User extends Model {
         validString("nome", nome, false, params);
     }
     public void validFunc(String id_func) throws SQLException, ClassNotFoundException{
-        List<Object> options = Arrays.asList(User.selectFunction().values().toArray());
+        List<Object> options = Arrays.asList(User.selectFunction(id_func.equals("1")).values().toArray());
         validSelect("id_func", id_func, options, new HashMap<String, Object>());
     }
     public void validCpf(String cpf){
