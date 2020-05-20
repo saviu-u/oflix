@@ -11,7 +11,7 @@ and open the template in the editor.
 .container {
     display: grid;
 
-    grid-template-rows:   7vh 86vh;
+    grid-template-rows:   7vh 93vh;
     grid-template-areas: "h s"
                          "m m"
                         
@@ -51,7 +51,7 @@ main{
     
 }
 
-.img-delete-edit{
+.img-delete-edit, .img-view-edit{
     width: 17px;
     height: 17px;
     margin: 0 8px;

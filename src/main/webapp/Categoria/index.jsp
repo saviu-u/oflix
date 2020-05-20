@@ -21,11 +21,17 @@
     </head>
     <body>
         <%
+            String simplePath = (String) request.getAttribute("simplePath");
+             if (!simplePath.substring(simplePath.length() - 1).equals("/")) {
+                simplePath += "/";
+            }
+            
+            
             String path = (String) request.getAttribute("path");
             if (!path.substring(path.length() - 1).equals("/")) {
                 path += "/";
             }
-
+            
         %>
         <div class="container">
             <header>
@@ -42,6 +48,7 @@
                         <tr>
                             <th>Nome da Categoria</th>
                             <th>Edit</th>
+                            <th>View</th>
                         </tr>
                         
                     
@@ -53,6 +60,7 @@
                                 out.println("<tr>");
                                 out.println("<td>" + filmes.get(i).get("nome_catg") + "</td>");
                                 out.println("<td><a href='" + path + filmes.get(i).get("id") + "/edit'><img class='img-delete-edit' src='/oflix/img/edit.png'>");
+                                out.println("<td><a href='" + simplePath + "filmes?category=" + filmes.get(i).get("id") + "'><img class='img-delete-edit' src='/oflix/img/compartilhar.png'>");
                                 out.println("</tr>");
                             }
                         %>
