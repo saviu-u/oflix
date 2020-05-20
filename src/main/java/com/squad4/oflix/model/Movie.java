@@ -89,7 +89,6 @@ public class Movie extends Model {
         try {
             Connection conexao = new DAO().connect();
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            System.out.println("TESTE: " + id_catg);
             stmt.setInt(1, Integer.parseInt(id_catg));
             stmt.setString(2, nome_filme);
             stmt.setString(3, sinopse);
@@ -187,7 +186,6 @@ public class Movie extends Model {
             Connection cnt = new DAO().connect();
             PreparedStatement stmt = cnt.prepareStatement("SELECT " + select + sql + order + ";");
             if(search != null) stmt.setString(1, search);
-            System.out.println("TESTE: " + stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 resource = new HashMap();
