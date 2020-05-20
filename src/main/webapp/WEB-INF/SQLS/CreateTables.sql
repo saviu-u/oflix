@@ -31,13 +31,21 @@ CREATE TABLE tb_pessoa(
 	CONSTRAINT tb_pessoa_endereco_id FOREIGN KEY(id_end) REFERENCES tb_endereco(id)
 );
 
+CREATE TABLE tb_categoria(
+	id SERIAL,
+	nome_catg VARCHAR(20) NOT NULL UNIQUE,
+	CONSTRAINT tb_categoria_id PRIMARY KEY(id)
+);
+
 CREATE TABLE tb_filme(
 	id SERIAL,
+	id_catg INTEGER,
 	nome_filme VARCHAR(255) NOT NULL,
 	sinopse VARCHAR(511),
 	quant_estoque INTEGER NOT NULL,
 	class_indicativa INTEGER NOT NULL,
-	CONSTRAINT tb_filme_id PRIMARY KEY(id)
+	CONSTRAINT tb_filme_id PRIMARY KEY(id),
+	CONSTRAINT tb_filme_categ_id FOREIGN KEY(id_catg) REFERENCES tb_categoria(id)
 );
 
 CREATE TABLE tb_aluguel(
@@ -49,34 +57,4 @@ CREATE TABLE tb_aluguel(
 	CONSTRAINT tb_aluguel_id PRIMARY KEY(id),
 	CONSTRAINT tb_aluguel_pessoa_id FOREIGN KEY(id_pes) REFERENCES tb_pessoa(id),
 	CONSTRAINT tb_aluguel_filme_id FOREIGN KEY(id_filme) REFERENCES tb_filme(id)
-);
-
-CREATE TABLE tb_categoria(
-	id SERIAL,
-	nome_catg VARCHAR(20) NOT NULL UNIQUE,
-	CONSTRAINT tb_categoria_id PRIMARY KEY(id)
-);
-
-CREATE TABLE tb_secao(
-	id_catg INTEGER,
-	id_filme INTEGER,
-	CONSTRAINT tb_secao_id PRIMARY KEY(id_catg, id_filme),
-	CONSTRAINT tb_secao_catg_id FOREIGN KEY(id_catg) REFERENCES tb_categoria(id),
-	CONSTRAINT tb_secao_filme_id FOREIGN KEY(id_filme) REFERENCES tb_filme(id)
-);
-
-CREATE TABLE tb_idioma(
-	id SERIAL,
-	nome_idioma VARCHAR(15) NOT NULL UNIQUE,
-	CONSTRAINT tb_idioma_id PRIMARY KEY(id)
-);
-
-CREATE TABLE tb_disponibilidade(
-	id_idioma INTEGER,
-	id_filme INTEGER,
-	dublado BOOL,
-	legendado BOOL,
-	CONSTRAINT tb_disp_id PRIMARY KEY(id_filme, id_idioma),
-	CONSTRAINT tb_disp_filme_id FOREIGN KEY(id_filme) REFERENCES tb_filme(id),
-	CONSTRAINT tb_disp_idioma_id FOREIGN KEY(id_idioma) REFERENCES tb_idioma(id)
 );

@@ -66,6 +66,10 @@ public class CustomerController extends Controller  {
         params.put("where", "id_func = 1");
 
         User newUser = User.find((int) request.getAttribute("id"), params);
+        if(newUser.getId() == null){
+            response.setStatus(404);
+            return;
+        }
         
         request.setAttribute("params", newUser.toMap());
         request.setAttribute("method", "Editar");

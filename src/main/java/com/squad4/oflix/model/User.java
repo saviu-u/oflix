@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class User extends Model {
     // Creates all the attributes
-    public Integer id = null;
+    private Integer id = null;
     private String id_func = null;
     private Integer id_end = null;
     private String nome_pes = null;
@@ -39,6 +39,10 @@ public class User extends Model {
     public User(Map<String, String[]> paramList){
         super(paramList);
         update(paramList);
+    }
+    
+    public Integer getId(){
+        return id;
     }
     
     //Used to update the attributes
@@ -124,7 +128,6 @@ public class User extends Model {
         try {
             super.valid();
             validNome(nome_pes);
-            System.out.println("TESTE1: " + id_func);
             validFunc(id_func);
             validCpf(cpf);
             validEmail(email);
@@ -223,7 +226,6 @@ public class User extends Model {
         User resource = new User();
         Map<String, String[]> attributes = new HashMap(); 
         String temp[] = {""};
-        String temp1[] = {"adasd"};
         
         try {
             Connection cnt = new DAO().connect();

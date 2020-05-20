@@ -15,6 +15,6 @@
     <a href="<%out.println(path);%>/usuarios">Usuários</a>
     <a href="<%out.println(path);%>/clientes">Clientes</a>
     <a href="<%out.println(path);%>/categorias">Categorias</a>
-    <a href="<%out.println(path);%>/dvds">DVD's</a>
+    <a href="<%out.println(path);%>/filmes">Filmes</a>
     <a href="<%out.println(path);%>/locacao">Locação</a>
 </div>

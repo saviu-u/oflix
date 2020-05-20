@@ -32,7 +32,6 @@ public class Controller extends HttpServlet {
             ":"+request.getLocalPort()+
             request.getContextPath();
         // Usually it's http://localhost:8080/oflix/
-        System.out.println(path);
         request.setAttribute("simplePath", path);
 
         // Gets a helper for the search bar
