@@ -30,8 +30,7 @@
         <div class="container">
             <header>
                 <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>     
-            </header>
-                <jsp:include page="../WEB-INF/Utilidades/authentication_header.jsp"></jsp:include>
+            </header>s
             <main>
                 <div class="background">
                     <jsp:include page="../WEB-INF/Utilidades/searchbar.jsp"></jsp:include> 

@@ -34,7 +34,6 @@
                 <header>
                     <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
                 </header>
-                    <jsp:include page="../WEB-INF/Utilidades/authentication_header.jsp"></jsp:include>
                 <main>
                     <div class="background">
                     <form class="form" method="POST">
