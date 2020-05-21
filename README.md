@@ -24,12 +24,11 @@ As rotas funcionam da seguinte maneira;
 
 O projeto têm as seguintes rotas:
 
-| Rotas               | Home    | Usuários | Clientes | Categorias | DVD's   |
-| :------------------ | :-----: | :-----:  | :------: | :--------: | :-----: |
-| **Index (GET)**     |❌|❌ |❌ |❌   |❌|
-| **New (GET)**       |✅|❌ |❌ |❌   |❌|
-| **Create (POST)**   |✅|❌ |❌ |❌   |❌|
-| **Edit (GET)**      |✅|❌ |❌ |✅   |❌|
-| **Update (PUT)**    |✅|❌ |❌ |✅   |❌|
-| **Delete(DELETE)**  |✅|❌ |❌ |❌   |❌|
-
+| Rotas               | Home    | Usuários | Clientes | Categorias | Filmes   | Locação |
+| :------------------ | :-----: | :-----:  | :------: | :--------: | :-----: | :-----: |
+| **Index (GET)**     |✅|✅ |✅ |✅   |✅|✅|
+| **New (GET)**       |❌|✅ |✅ |✅   |✅|✅|
+| **Create (POST)**   |❌|✅ |✅ |✅   |✅|✅|
+| **Edit (GET)**      |❌|✅ |✅ |✅   |✅|✅|
+| **Update (PUT)**    |❌|✅ |✅ |✅   |✅|✅|
+| **Delete(DELETE)**  |❌|✅ |✅ |❌   |❌|❌|
