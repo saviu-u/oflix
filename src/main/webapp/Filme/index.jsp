@@ -15,8 +15,8 @@
         <link rel="stylesheet" type="text/css" href="/oflix/css/list.css">
         <link rel="stylesheet" type="text/css" href="/oflix/css/header.css">
         <link rel="stylesheet" type="text/css" href="/oflix/css/searchbar.css">
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">       
         <title>Filmes</title>
     </head>
     <body>
