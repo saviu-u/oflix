@@ -370,7 +370,7 @@ public class User extends Model {
         validString("nome", nome, false, params);
     }
     public void validFunc(String id_func) throws SQLException, ClassNotFoundException{
-        List<Object> options = Arrays.asList(User.selectFunction(id_func.equals("1")).values().toArray());
+        List<Object> options = Arrays.asList(User.selectFunction(id_func != null && id_func.equals("1")).values().toArray());
         validSelect("id_func", id_func, options, new HashMap<String, Object>());
     }
     public void validCpf(String cpf){
