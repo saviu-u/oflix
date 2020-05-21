@@ -167,7 +167,7 @@ public class Rent extends Model {
         try{ if(params.get("where") != null) where = (String) params.get("where"); }catch(Exception e){}
         try{ if(params.get("search") != null) search = ((String[]) params.get("search"))[0]; }catch(Exception e){}
 
-        String order = "ORDER BY data_aluguel DESC\n" +
+        String order = "ORDER BY tb_aluguel.ativo = true ASC, data_aluguel DESC\n" +
                 "LIMIT(" + limit + ") OFFSET(" + (page - 1) * limit  + ")\n";
         String select = "tb_aluguel.id, tb_pessoa.nome_pes, tb_filme.nome_filme, TO_CHAR(data_aluguel, 'DD/MM/YYYY') AS data_aluguel, tb_aluguel.ativo\n";
         String sql = "FROM tb_aluguel\n"
@@ -193,9 +193,9 @@ public class Rent extends Model {
                 resource.put("nome_pes", rs.getString(2));
                 resource.put("nome_filme", rs.getString(3));
                 resource.put("data_aluguel", rs.getString(4));
-                String ativo = "Sim";
-                if(rs.getBoolean(5)) ativo = "Não";
-                resource.put("tb_aluguel", ativo);
+                String ativo = "Não";
+                if(rs.getBoolean(5)) ativo = "Sim";
+                resource.put("ativo", ativo);
                 resources.add(resource);
             }
             

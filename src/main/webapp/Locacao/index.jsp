@@ -43,6 +43,7 @@
                             <th>Data</th>
                             <th>Cliente</th>
                             <th>Filme</th>
+                            <th>Devolvido</th>
                             <th>Edit</th>
                         </tr>
                         
@@ -56,6 +57,7 @@
                                 out.println("<td>" + alugueis.get(i).get("data_aluguel") + "</td>");
                                 out.println("<td>" + alugueis.get(i).get("nome_pes") + "</td>");
                                 out.println("<td>" + alugueis.get(i).get("nome_filme") + "</td>");
+                                out.println("<td>" + alugueis.get(i).get("ativo") + "</td>");
                                 out.println("<td><a href='" + path + alugueis.get(i).get("id") + "/edit'><img class='img-delete-edit' src='/oflix/img/edit.png'>");
                                 out.println("</tr>");
                             }
