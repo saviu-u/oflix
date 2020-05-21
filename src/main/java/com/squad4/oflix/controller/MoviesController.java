@@ -20,6 +20,12 @@ public class MoviesController extends Controller {
     protected void doIndex(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Map<String, Object> params = new HashMap(request.getParameterMap());
+        Integer category = null;
+        if(params.get("category") != null && !((String[]) params.get("category"))[0].equals("")){
+            category = Integer.parseInt(((String[]) params.get("category"))[0]);
+        }
+        if(category != null) params.put("where", "id_catg = " + category);
+        
         params = Movie.getResources(params);
         request.setAttribute("resources" , params.get("resources"));
         request.setAttribute("pageNumbers", params.get("pageQuantity"));
