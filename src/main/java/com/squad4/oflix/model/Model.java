@@ -58,7 +58,8 @@ public abstract class Model {
         if(params.get("uniqueness") != null){
             try {
                 Connection cnt = new DAO().connect();
-                String sql = "SELECT COUNT(*) FROM " + params.get("uniqueness") + " WHERE " + key + " = ? AND id != " + params.get("id") + ";";
+                String sql = "SELECT COUNT(*) FROM " + params.get("uniqueness") + " WHERE " + key + " = ?";
+                if(params.get("id") != null ) sql += " AND id != " + params.get("id") + ";";
                 PreparedStatement stmt = cnt.prepareStatement(sql);
                 stmt.setString(1, value);
                 ResultSet rs = stmt.executeQuery();
