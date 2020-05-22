@@ -6,8 +6,9 @@
 
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>  
     <head>
         <link rel="stylesheet" type="text/css" href="/oflix/css/format.css">
@@ -30,11 +31,10 @@
                 if(params == null) params = new HashMap();
                 if(errors == null) errors = new HashMap();
             %>
+            <header>
+                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+            </header>
             <div class="container">
-                <header>
-                    <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
-                </header>
-                    <jsp:include page="../WEB-INF/Utilidades/authentication_header.jsp"></jsp:include>
                 <main>
                     <div class="background">
                     <form class="form" method="POST">
@@ -42,7 +42,7 @@
                             <label class="category">Dados da Categoria: </label>
                             <fieldset <% if(errors.get("nome_catg") != null) out.println("class=error"); %>>
                                 <label class="required">Nome</label>
-                                <input name="nome_catg" type="text" placeholder="TÃ­tulo.."
+                                <input name="nome_catg" type="text" placeholder="Título.."
                                     <% if(params.get("nome_catg") != null) out.println("value=\""+ params.get("nome_catg")[0] + "\""); %>
                                 >
                                 <% if(errors.get("nome_catg") != null) out.println("<div>"+ errors.get("nome_catg") +"</div>"); %>

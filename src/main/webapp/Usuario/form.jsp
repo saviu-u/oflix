@@ -6,8 +6,9 @@
 
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>  
     <head>
         <link rel="stylesheet" type="text/css" href="/oflix/css/format.css">
@@ -21,7 +22,7 @@
             String method = (String) request.getAttribute("method");
             boolean edit = method.equals("Editar");
         %>
-        <title>Usu√°rios - <% out.println(method); %></title>
+        <title>Usu·rios - <% out.println(method); %></title>
     </head>
         <body>
             <%
@@ -32,11 +33,10 @@
                 if(errors == null) errors = new HashMap();
                 if(functions == null) functions = new HashMap();
             %>
+            <header>
+                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+            </header>
             <div class="container">
-                <header>
-                    <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
-                </header>
-                    <jsp:include page="../WEB-INF/Utilidades/authentication_header.jsp"></jsp:include>
                 <main>
                     <div class="background">
                     <form class="form" method="POST">
@@ -50,7 +50,7 @@
                                 <% if(errors.get("nome") != null) out.println("<div>"+ errors.get("nome") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("id_func") != null) out.println("class=error"); %>>
-                                <label class="required">Fun√ß√£o</label>
+                                <label class="required">FunÁ„o</label>
                                 <select name="id_func">
                                     <option value="" selected disabled hidden></option>
                                     <%
