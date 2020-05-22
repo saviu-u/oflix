@@ -17,7 +17,7 @@ As rotas funcionam da seguinte maneira;
 | ---: | :---: | :--- |
 | **Index**   | `GET` |*`/modelo`*
 | **New**     | `GET` |*`/modelo/new`*
-| **Create**  | `POST` |*`/modelo`*
+| **Create**  | `POST` |*`/modelo/new`*
 | **Edit**       | `GET` |*`/modelo/id/edit`*
 | **Update** | `POST` |*`/modelo/id/edit`*
 | **Delete**   | `GET` |*`/modelo/id/delete`*
