@@ -30,10 +30,10 @@
                 if(params == null) params = new HashMap();
                 if(errors == null) errors = new HashMap();
             %>
+            <header>
+                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+            </header>
             <div class="container">
-                <header>
-                    <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
-                </header>
                 <main>
                     <div class="background">
                     <form class="form" method="POST">

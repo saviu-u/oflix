@@ -34,11 +34,10 @@
                 if(customers == null) customers = new HashMap();
                 if(movies == null) movies = new HashMap();
             %>
+            <header>
+                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+            </header>
             <div class="container">
-                <header>
-                    <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
-                </header>
-                   
                 <main>
                     <div class="background">
                     <form class="form" method="POST">

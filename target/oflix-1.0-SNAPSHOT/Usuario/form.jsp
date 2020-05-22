@@ -21,7 +21,7 @@
             String method = (String) request.getAttribute("method");
             boolean edit = method.equals("Editar");
         %>
-        <title>Usuários - <% out.println(method); %></title>
+        <title>UsuÃ¡rios - <% out.println(method); %></title>
     </head>
         <body>
             <%
@@ -32,10 +32,10 @@
                 if(errors == null) errors = new HashMap();
                 if(functions == null) functions = new HashMap();
             %>
+            <header>
+                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+            </header>
             <div class="container">
-                <header>
-                    <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
-                </header>
                 <main>
                     <div class="background">
                     <form class="form" method="POST">
@@ -49,7 +49,7 @@
                                 <% if(errors.get("nome") != null) out.println("<div>"+ errors.get("nome") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("id_func") != null) out.println("class=error"); %>>
-                                <label class="required">Função</label>
+                                <label class="required">FunÃ§Ã£o</label>
                                 <select name="id_func">
                                     <option value="" selected disabled hidden></option>
                                     <%
@@ -115,17 +115,17 @@
                             </div>
                             <br>
                         <div>
-                            <label class="category">Endereço: </label>
+                            <label class="category">EndereÃ§o: </label>
                             <fieldset <% if(errors.get("estado") != null) out.println("class=error"); %>>
                                 <label class="required">Estado</label>
-                                <input name="estado" type="text" placeholder="São Paulo"
+                                <input name="estado" type="text" placeholder="SÃ£o Paulo"
                                     <% if(params.get("estado") != null) out.println("value=\""+ params.get("estado")[0] + "\""); %>
                                 >
                                 <% if(errors.get("estado") != null) out.println("<div>"+ errors.get("estado") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("cidade") != null) out.println("class=error"); %>>
                                 <label class="required">Cidade</label>
-                                <input name="cidade" type="text" placeholder="Ribeirão Preto"
+                                <input name="cidade" type="text" placeholder="RibeirÃ£o Preto"
                                     <% if(params.get("cidade") != null) out.println("value=\""+ params.get("cidade")[0] + "\""); %>
                                 >
                                 <% if(errors.get("cidade") != null) out.println("<div>"+ errors.get("cidade") +"</div>"); %>

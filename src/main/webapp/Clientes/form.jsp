@@ -32,10 +32,10 @@
                 if(errors == null) errors = new HashMap();
                 if(functions == null) functions = new HashMap();
             %>
+            <header>
+                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+            </header>
             <div class="container">
-                <header>
-                    <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
-                </header>
                 <main>
                     <div class="background">
                     <form class="form" method="POST">

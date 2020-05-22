@@ -25,12 +25,11 @@
             if (!path.substring(path.length() - 1).equals("/")) {
                 path += "/";
             }
-
         %>
+        <header>
+            <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>     
+        </header>
         <div class="container">
-            <header>
-                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>     
-            </header>s
             <main>
                 <div class="background">
                     <jsp:include page="../WEB-INF/Utilidades/searchbar.jsp"></jsp:include> 

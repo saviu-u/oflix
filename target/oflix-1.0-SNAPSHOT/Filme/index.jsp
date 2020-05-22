@@ -27,10 +27,10 @@
             }
 
         %>
+        <header>
+            <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>
+        </header>
         <div class="container">
-            <header>
-                <jsp:include page="../WEB-INF/Utilidades/header.jsp"></jsp:include>     
-            </header>>
             <main>
                 <div class="background">
                     <jsp:include page="../WEB-INF/Utilidades/searchbar.jsp"></jsp:include> 
