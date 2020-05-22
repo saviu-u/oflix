@@ -19,8 +19,8 @@ As rotas funcionam da seguinte maneira;
 | **New**     | `GET` |*`/modelo/new`*
 | **Create**  | `POST` |*`/modelo`*
 | **Edit**       | `GET` |*`/modelo/id/edit`*
-| **Update** | `PUT` |*`/modelo/id`*
-| **Delete**   | `DELETE` |*`/modelo/id`*
+| **Update** | `POST` |*`/modelo/id/edit`*
+| **Delete**   | `GET` |*`/modelo/id/delete`*
 
 O projeto têm as seguintes rotas:
 
