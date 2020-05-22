@@ -19,7 +19,7 @@ public class User extends Model {
     private String nome_pes = null;
     private String cpf = null;
     private String email = null;
-    private String senha = null;
+    // private String senha = null;
     // Integer
     private String telefone_1 = null;
     // Integer
@@ -51,7 +51,7 @@ public class User extends Model {
         if(paramList.containsKey("id_func")) this.id_func = paramList.get("id_func")[0];
         if(paramList.containsKey("cpf")) this.cpf = paramList.get("cpf")[0];
         if(paramList.containsKey("email")) this.email = paramList.get("email")[0];
-        if(paramList.containsKey("senha")) this.senha = paramList.get("senha")[0];
+        // if(paramList.containsKey("senha")) this.senha = paramList.get("senha")[0];
         if(paramList.containsKey("telefone_1")) this.telefone_1 = paramList.get("telefone_1")[0];
         if(paramList.containsKey("telefone_2")) this.telefone_2 = paramList.get("telefone_2")[0];
         if(paramList.containsKey("sexo")) this.sexo = paramList.get("sexo")[0];
