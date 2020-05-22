@@ -6,8 +6,9 @@
 
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>  
     <head>
         <link rel="stylesheet" type="text/css" href="/oflix/css/format.css">
@@ -101,17 +102,17 @@
                             </div>
                             <br>
                         <div>
-                            <label class="category">EndereÃ§o: </label>
+                            <label class="category">Endereço: </label>
                             <fieldset <% if(errors.get("estado") != null) out.println("class=error"); %>>
                                 <label class="required">Estado</label>
-                                <input name="estado" type="text" placeholder="SÃ£o Paulo"
+                                <input name="estado" type="text" placeholder="São Paulo"
                                     <% if(params.get("estado") != null) out.println("value=\""+ params.get("estado")[0] + "\""); %>
                                 >
                                 <% if(errors.get("estado") != null) out.println("<div>"+ errors.get("estado") +"</div>"); %>
                             </fieldset>
                             <fieldset <% if(errors.get("cidade") != null) out.println("class=error"); %>>
                                 <label class="required">Cidade</label>
-                                <input name="cidade" type="text" placeholder="RibeirÃ£o Preto"
+                                <input name="cidade" type="text" placeholder="Ribeirão Preto"
                                     <% if(params.get("cidade") != null) out.println("value=\""+ params.get("cidade")[0] + "\""); %>
                                 >
                                 <% if(errors.get("cidade") != null) out.println("<div>"+ errors.get("cidade") +"</div>"); %>

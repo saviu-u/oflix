@@ -6,8 +6,9 @@
 
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>  
     <head>
         <link rel="stylesheet" type="text/css" href="/oflix/css/format.css">
@@ -43,7 +44,7 @@
                         <label class="category">Dados do filme: </label>
                         <fieldset <% if(errors.get("nome_filme") != null) out.println("class=error"); %>>
                             <label class="required">Nome</label>
-                            <input name="nome_filme" type="text" placeholder="TÃ­tulo.."
+                            <input name="nome_filme" type="text" placeholder="Título.."
                                 <% if(params.get("nome_filme") != null) out.println("value=\""+ params.get("nome_filme")[0] + "\""); %>
                             >
                             <% if(errors.get("nome_filme") != null) out.println("<div>"+ errors.get("nome_filme") +"</div>"); %>
@@ -75,7 +76,7 @@
                             <% if(errors.get("quant_estoque") != null) out.println("<div>"+ errors.get("quant_estoque") +"</div>"); %>
                         </fieldset>
                         <fieldset <% if(errors.get("class_indicativa") != null) out.println("class=error"); %>>
-                            <label class="required">ClassificaÃ§Ã£o</label>
+                            <label class="required">Classificação</label>
                             <input name="class_indicativa" type="tel" maxlength="8"
                                 <% if(params.get("class_indicativa") != null) out.println("value=\""+ params.get("class_indicativa")[0] + "\""); %>
                             >

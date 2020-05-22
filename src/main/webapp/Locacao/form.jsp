@@ -6,8 +6,9 @@
 
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>  
     <head>
         <link rel="stylesheet" type="text/css" href="/oflix/css/format.css">
@@ -21,7 +22,7 @@
             String method = (String) request.getAttribute("method");
             boolean edit = method.equals("Editar");
         %>
-        <title>LocaÃ§Ã£o - <% out.println(method); %></title>
+        <title>Locação - <% out.println(method); %></title>
     </head>
         <body>
             <%
@@ -42,9 +43,9 @@
                     <div class="background">
                     <form class="form" method="POST">
                         <div>
-                            <label class="category">Dados da locaÃ§Ã£o: </label>
+                            <label class="category">Dados da locação: </label>
                             <fieldset <% if(errors.get("data_aluguel") != null) out.println("class=error"); %>>
-                                <label class="required">Data de locaÃ§Ã£o</label>
+                                <label class="required">Data de locação</label>
                                 <input name="data_aluguel" type="date"
                                     <% if(params.get("data_aluguel") != null) out.println("value=\""+ params.get("data_aluguel")[0] + "\""); %>
                                 >
@@ -83,7 +84,7 @@
                             <fieldset <% if(errors.get("ativo") != null) out.println("class=error"); %>>
                                 <label class="required">Devolvido: </label>
                                 <input type="radio" name="ativo" required="required" value="false" <% if(params.get("ativo") == null || params.get("ativo")[0].equals("false")) out.println("checked"); %>>
-                                <label class="tipo_sexo">NÃ£o</label>
+                                <label class="tipo_sexo">Não</label>
                                 <input type="radio" name="ativo" required="required" value="true" <% if(params.get("ativo") != null && params.get("ativo")[0].equals("true")) out.println("checked"); %>>
                                 <label class="tipo_sexo">Sim</label>
                                 <% if(errors.get("ativo") != null) out.println("<div>"+ errors.get("ativo") +"</div>"); %>
